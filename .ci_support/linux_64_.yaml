@@ -23,7 +23,7 @@ docker_image:
 libaec:
 - '1'
 libboost_devel:
-- '1.89'
+- '1.90'
 libcurl:
 - '8'
 mpich:

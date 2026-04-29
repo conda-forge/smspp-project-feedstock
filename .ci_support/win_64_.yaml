@@ -15,7 +15,7 @@ coin_or_utils:
 cxx_compiler:
 - vs2022
 libboost_devel:
-- '1.89'
+- '1.90'
 mkl_devel:
 - '2025'
 target_platform:
