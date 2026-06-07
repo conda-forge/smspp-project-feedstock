@@ -88,7 +88,12 @@ test:
     - where InvestmentBlock_test              # [win]
     - dumpbin /dependents StOpt.lib  # [win]
     - dumpbin /dependents %PREFIX%\Library\bin\InvestmentBlock_test.exe  # [win]
-    - dir
+    # --- TEMP DIAGNOSTICS: find who pulls libgfortran-5.dll on Windows ---
+    - dumpbin /imports %PREFIX%\Library\bin\InvestmentBlock_test.exe | findstr /i "gfortran openblas quadmath winpthread libgcc" || echo no-fortran-import-in-InvestmentBlock_test  # [win]
+    - dumpbin /imports %PREFIX%\Library\bin\ucblock_solver.exe | findstr /i "gfortran openblas quadmath winpthread libgcc" || echo no-fortran-import-in-ucblock_solver  # [win]
+    - dumpbin /dependents %PREFIX%\Library\bin\ucblock_solver.exe  # [win]
+    - powershell -NoProfile -Command "Get-ChildItem $env:PREFIX\Library\bin\*.dll | ForEach-Object { if (& dumpbin /imports $_.FullName 2>$null | Select-String -Quiet 'gfortran|openblas|quadmath') { Write-Host ('IMPORTER -> ' + $_.Name) } }"  # [win]
+    - dir  # [win]
     - |
       curl -OL https://raw.githubusercontent.com/regro-cf-autotick-bot/smspp-project-feedstock/refs/heads/rebuild-mkl2026-0-1_ha137d2/recipe/diagnose_dll_symbol.py
       python diagnose_dll_symbol.py %PREFIX%\Library\bin\InvestmentBlock_test.exe  # [win]
