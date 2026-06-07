@@ -25,8 +25,8 @@ requirements:
     - libgomp  # [linux]
     - llvm-openmp   # [osx or win]
     - mpich  # [unix]
-    #- msmpi  # [win]
-    - impi-devel  # [win]
+    - msmpi  # [win]
+    #- impi-devel  # [win]
     - libboost-devel
     - libboost-mpi >={{ libboost_devel }}
     - netcdf-cxx4 *.* nompi_*
