@@ -52,8 +52,8 @@ requirements:
 test:
   requires:
     - vs2022_win-64  # [win]
-    - python # [win]
-    - py-lief # [win]
+    - python  # [win]
+    - py-lief  # [win]
     - curl
   source_files:
     - tools
@@ -85,7 +85,7 @@ test:
     - where api-ms-win-crt-time-l1-1-0.dll || echo api-ms-win-crt-time-l1-1-0.dll not found on PATH  # [win]
     - where api-ms-win-crt-locale-l1-1-0.dll || echo api-ms-win-crt-locale-l1-1-0.dll not found on PATH  # [win]
     - where api-ms-win-crt-environment-l1-1-0.dll || echo api-ms-win-crt-environment-l1-1-0.dll not found on PATH  # [win]
-    - where InvestmentBlock_test # [win]
+    - where InvestmentBlock_test  # [win]
     - dumpbin /dependents StOpt.lib  # [win]
     - dumpbin /dependents %PREFIX%\Library\bin\InvestmentBlock_test.exe  # [win]
     # --- TEMP DIAGNOSTICS: find who imports a fortran/mingw runtime on Windows ---
