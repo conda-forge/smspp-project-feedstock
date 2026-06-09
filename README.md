@@ -13,7 +13,7 @@ Development: https://gitlab.com/smspp/smspp-project
 
 Documentation: https://smspp.gitlab.io/
 
-SMS++ project provides is a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
+SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
 
 
 Current build status

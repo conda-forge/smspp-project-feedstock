@@ -1,4 +1,4 @@
-{% set version = "0.5.0" %}
+{% set version = "0.5.1" %}
 
 package:
   name: smspp-project
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
-  sha256: 02d30a318b39491edc92b98cbe78ddbdd68891695493667b53728a80e3696967
+  sha256: 2a0527040e383f4bbb7ff0516d835bfbe6920d15306f8c35d93a0f786e210fb9
 
 build:
-  number: 7
+  number: 1
   run_exports:
     - {{ pin_subpackage('smspp-project', max_pin='x.x.x') }}
 
@@ -21,11 +21,14 @@ requirements:
     - make  # [unix]
     - pkgconfig  # [unix]
     - ninja  # [win]
+    - highs >=1.10.0
   host:
     - libgomp  # [linux]
-    - llvm-openmp   # [osx or win]
+    - llvm-openmp   # [unix]
     - mpich  # [unix]
     - impi-devel  # [win]
+    - intel-openmp  # [win]
+    - openblas
     - libboost-devel
     - libboost-mpi >={{ libboost_devel }}
     - netcdf-cxx4 *.* nompi_*
@@ -42,12 +45,15 @@ requirements:
     - coin-or-osi
     # - scip >=9.2.3
     - highs >=1.10.0
+    - lemon
     - stopt >=6.3  # [win]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
     - mkl-devel  # [win]
     - zstd  # [win]
     - winpthreads-devel  # [win]
+  run:
+    - libopenblas  # [unix]
 
 test:
   requires:
@@ -57,7 +63,6 @@ test:
     - curl
   source_files:
     - tools
-    - InvestmentBlock
   commands:
     - echo I_MPI_ROOT=%I_MPI_ROOT%            # [win]
     - where libbz2.dll || echo libbz2.dll not found on PATH  # [win]
@@ -96,21 +101,23 @@ test:
       curl -OL https://raw.githubusercontent.com/regro-cf-autotick-bot/smspp-project-feedstock/refs/heads/rebuild-mkl2026-0-1_ha137d2/recipe/diagnose_dll_symbol.py
       python diagnose_dll_symbol.py %PREFIX%\Library\bin\InvestmentBlock_test.exe  # [win]
     - ucblock_solver --help
-    - InvestmentBlock_test --help
-    # - |  # To re-enable at the next release when Bus_Test.nc4 is available
-    #   cd tools/ucblock_solver/examples
-    #   cp ../config/BSCfg.txt BSCfg.txt
-    #   ucblock_solver Bus_Test.nc4 -S BSCfg.txt
-    #   cd ../../..
+    - investmentblock_solver --help
     - |
-      cd InvestmentBlock/test
-      InvestmentBlock_test InvestmentBlockBus.nc4 -c config/ -S BSPar.txt
+      cd tools/ucblock_solver/examples
+      cp ../config/BSCfg.txt BSCfg.txt
+      ucblock_solver Bus_Test.nc4 -S BSCfg.txt
+      cd ../../..
+    - |
+      cd tools/investmentblock_solver
+      cp config/BSPar.txt BSPar.txt
+      cp config/BSCfg.txt BSCfg.txt
+      investmentblock_solver InvestmentBlockBus.nc4 -S BSPar.txt
 
 about:
   home: https://gitlab.com/smspp/smspp-project
   summary: 'A powerful tool to model and solve optimization problems.'
   description: |
-    SMS++ project provides is a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
+    SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
   license: GPL-3.0-or-later
   license_file: LICENSE
   doc_url: https://smspp.gitlab.io/
