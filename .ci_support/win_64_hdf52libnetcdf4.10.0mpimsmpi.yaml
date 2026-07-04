@@ -15,17 +15,23 @@ coin_or_utils:
 cxx_compiler:
 - vs2022
 hdf5:
-- 1.14.6
+- '2'
 libboost_devel:
 - '1.90'
 libnetcdf:
-- 4.9.3
+- 4.10.0
 mkl_devel:
 - '2024'
+mpi:
+- msmpi
+mpich:
+- '5'
 netcdf_cxx4:
 - '4.3'
 openblas:
 - 0.3.*
+openmpi:
+- '4'
 pin_run_as_build:
   netcdf-cxx4:
     max_pin: x.x

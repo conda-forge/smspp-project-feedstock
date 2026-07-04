@@ -9,7 +9,7 @@ source:
   sha256: 2a0527040e383f4bbb7ff0516d835bfbe6920d15306f8c35d93a0f786e210fb9
 
 build:
-  number: 3
+  number: 4
   run_exports:
     - {{ pin_subpackage('smspp-project', max_pin='x.x.x') }}
 
@@ -18,14 +18,15 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cmake >=3.15
-    - make
+    - make  # [unix]
     - pkgconfig  # [unix]
     - ninja  # [win]
     - highs >=1.10.0
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
-    - intel-openmp  # [win]
+    - llvm-openmp  # [win and mpi != "msmpi"]
+    - intel-openmp  # [win and mpi == "msmpi"]
     - openblas
     - libboost-devel
     - libboost-mpi >={{ libboost_devel }}
@@ -41,24 +42,24 @@ requirements:
     - bzip2
     - zlib
     - eigen
-    - mpich  # [unix]
-    - msmpi  # [win]
+    - {{ mpi }}
     - coin-or-utils
     - coin-or-clp
     - coin-or-osi
     # - scip >=9.2.3
     - highs >=1.10.0
     - lemon
-    - stopt >=6.1  # [win]
+    - stopt >=6.3  # [win]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
-    - pthreads-win32  # [win]
     - mkl-devel  # [win]
     - zstd  # [win]
+    - winpthreads-devel  # [win and mpi != "msmpi"]
+    - pthreads-win32  # [win and mpi == "msmpi"]
   run:
     - libopenblas  # [unix]
-    - msmpi  # [win]
-    - pthreads-win32  # [win]
+    - msmpi  # [win and mpi == "msmpi"]
+    - pthreads-win32  # [win and mpi == "msmpi"]
 
 test:
   source_files:

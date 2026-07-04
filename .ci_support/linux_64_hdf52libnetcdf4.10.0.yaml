@@ -30,12 +30,16 @@ libcurl:
 - '8'
 libnetcdf:
 - 4.10.0
+mpi:
+- mpich
 mpich:
 - '5'
 netcdf_cxx4:
 - '4.3'
 openblas:
 - 0.3.*
+openmpi:
+- '4'
 openssl:
 - '3.5'
 pin_run_as_build:

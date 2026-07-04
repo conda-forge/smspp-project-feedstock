@@ -36,12 +36,16 @@ llvm_openmp:
 - '19'
 macos_machine:
 - x86_64-apple-darwin13.4.0
+mpi:
+- mpich
 mpich:
 - '5'
 netcdf_cxx4:
 - '4.3'
 openblas:
 - 0.3.*
+openmpi:
+- '4'
 openssl:
 - '3.5'
 pin_run_as_build:
