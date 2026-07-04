@@ -1,0 +1,46 @@
+bzip2:
+- '1'
+c_stdlib:
+- vs
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+coin_or_clp:
+- '1.17'
+coin_or_osi:
+- '0.108'
+coin_or_utils:
+- '2.11'
+cxx_compiler:
+- vs2022
+hdf5:
+- '2'
+libboost_devel:
+- '1.90'
+libnetcdf:
+- 4.10.0
+mkl_devel:
+- '2024'
+mpi:
+- impi-devel
+mpich:
+- '5'
+netcdf_cxx4:
+- '4.3'
+openblas:
+- 0.3.*
+openmpi:
+- '4'
+pin_run_as_build:
+  netcdf-cxx4:
+    max_pin: x.x
+target_platform:
+- win-64
+zip_keys:
+- - hdf5
+  - libnetcdf
+zlib:
+- '1'
+zstd:
+- '1.5'
