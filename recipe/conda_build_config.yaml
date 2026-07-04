@@ -13,3 +13,4 @@ zip_keys:
     - libnetcdf
 mkl_devel:
   - 2024  # [win and mpi == "msmpi"]
+  - 2026  # [win and mpi != "msmpi"]
