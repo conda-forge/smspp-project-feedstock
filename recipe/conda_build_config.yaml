@@ -14,3 +14,5 @@ zip_keys:
 mkl_devel:
   - 2024  # [win and mpi == "msmpi"]
   - 2026  # [win and mpi != "msmpi"]
+impi_devel:
+  - 2021.14.1  # [win and mpi == "impi-devel"]
