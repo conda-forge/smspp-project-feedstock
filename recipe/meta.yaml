@@ -60,9 +60,6 @@ requirements:
     - libopenblas  # [unix]
     - msmpi  # [win and mpi == "msmpi"]
     - pthreads-win32  # [win and mpi == "msmpi"]
-  run_constrained:
-    - msmpi <0a0  # [win and mpi != "msmpi"]
-    - impi_rt <0a0  # [win and mpi == "msmpi"]
 
 test:
   source_files:
