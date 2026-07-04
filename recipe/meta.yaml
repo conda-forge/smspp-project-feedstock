@@ -62,9 +62,34 @@ requirements:
     - pthreads-win32  # [win and mpi == "msmpi"]
 
 test:
+  requires:
+    - vs2022_win-64  # [win]
+    - python  # [win]
+    - py-lief  # [win]
+    - curl
   source_files:
     - tools
   commands:
+    - echo I_MPI_ROOT=%I_MPI_ROOT%            # [win]
+    - where libbz2.dll || echo libbz2.dll not found on PATH  # [win]
+    - where zlib.dll || echo zlib.dll not found on PATH  # [win]
+    - where boost_timer.dll || echo boost_timer.dll not found on PATH  # [win]
+    - where boost_mpi.dll || echo boost_mpi.dll not found on PATH  # [win]
+    - where boost_serialization.dll || echo boost_serialization.dll not found on PATH  # [win]
+    - where impi.dll || echo impi.dll not found on PATH  # [win]
+    - where netcdf-cxx4.dll || echo netcdf-cxx4.dll not found on PATH  # [win]
+    - where getopt.dll || echo getopt.dll not found on PATH  # [win]
+    - where highs.dll || echo highs.dll not found on PATH  # [win]
+    - where investmentblock_solver  # [win]
+    - dumpbin /dependents StOpt.lib  # [win]
+    - dumpbin /dependents %PREFIX%\Library\bin\investmentblock_solver.exe  # [win]
+    # --- TEMP DIAGNOSTICS: find who imports a fortran/mingw runtime on Windows ---
+    - dumpbin /dependents %PREFIX%\Library\bin\ucblock_solver.exe  # [win]
+    - powershell -NoProfile -Command "$ErrorActionPreference='SilentlyContinue'; $bin = Join-Path $env:PREFIX 'Library\bin'; $dirs = @($bin) + ($env:PATH -split ';' | Where-Object { $_ }); $seen=@{}; $miss=@{}; $st=[System.Collections.Stack]::new(); $st.Push((Join-Path $bin 'investmentblock_solver.exe')); while($st.Count -gt 0){ $f=$st.Pop(); if(-not (Test-Path $f)){ continue }; $k=([IO.Path]::GetFileName($f)).ToLower(); if($seen.ContainsKey($k)){ continue }; $seen[$k]=$true; $deps = & dumpbin /dependents $f 2>$null | ForEach-Object { $_.Trim() } | Where-Object { $_-match '^[A-Za-z0-9_.+-]+\.dll$' }; foreach($d in $deps){ $dl=$d.ToLower(); if($dl -like 'api-ms-*' -or $dl -eq 'kernel32.dll'){ continue }; $found=$null; foreach($dir in $dirs){ $c=Join-Path $dir $d; if(Test-Path $c){ $found=$c; break } }; if($found){ $st.Push($found) } else { $miss[$dl]=$k }} }; Write-Host '=== UNRESOLVED DEPS ==='; if($miss.Count -eq 0){ Write-Host '(none)' } else { $miss.GetEnumerator() | ForEach-Object { Write-Host ($_.Key + ' <- needed by ' + $_.Value) } }; exit 0"  # [win]
+    - dir  # [win]
+    - |
+      curl -OL https://raw.githubusercontent.com/regro-cf-autotick-bot/smspp-project-feedstock/refs/heads/rebuild-mkl2026-0-1_ha137d2/recipe/diagnose_dll_symbol.py
+      python diagnose_dll_symbol.py %PREFIX%\Library\bin\investmentblock_solver.exe
     - ucblock_solver --help
     - investmentblock_solver --help
     - |
