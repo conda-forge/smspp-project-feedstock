@@ -9,7 +9,7 @@ mpi:
   - msmpi    # [win]
   - impi-devel  # [win]
 mkl_devel:
-  - 2026  # [unix]
+  - 2024  # [unix]
   - 2024  # [win]
   - 2026  # [win]
 impi_devel:
