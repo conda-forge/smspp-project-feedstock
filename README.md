@@ -55,31 +55,31 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel</td>
+              <td>win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi</td>
+              <td>win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2026mpiimpi-devel</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2026mpiimpi-devel" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpiimpi-devel</td>
+              <td>win_64_hdf52libnetcdf4.10.0mkl_devel2024mpimsmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpiimpi-devel" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mkl_devel2024mpimsmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpimsmpi</td>
+              <td>win_64_hdf52libnetcdf4.10.0mkl_devel2026mpiimpi-devel</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpimsmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mkl_devel2026mpiimpi-devel" alt="variant">
                 </a>
               </td>
             </tr>

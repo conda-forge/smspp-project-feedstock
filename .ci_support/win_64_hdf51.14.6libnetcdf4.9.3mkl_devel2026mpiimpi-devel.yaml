@@ -40,6 +40,8 @@ target_platform:
 zip_keys:
 - - hdf5
   - libnetcdf
+- - mpi
+  - mkl_devel
 zlib:
 - '1'
 zstd:

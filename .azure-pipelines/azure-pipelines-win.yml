@@ -8,8 +8,8 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel:
-        CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel
+      win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi:
+        CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip
@@ -17,8 +17,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: D:\Miniforge
-      win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi:
-        CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi
+      win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2026mpiimpi-devel:
+        CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2026mpiimpi-devel
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip
@@ -26,8 +26,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: D:\Miniforge
-      win_64_hdf52libnetcdf4.10.0mpiimpi-devel:
-        CONFIG: win_64_hdf52libnetcdf4.10.0mpiimpi-devel
+      win_64_hdf52libnetcdf4.10.0mkl_devel2024mpimsmpi:
+        CONFIG: win_64_hdf52libnetcdf4.10.0mkl_devel2024mpimsmpi
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip
@@ -35,8 +35,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: D:\Miniforge
-      win_64_hdf52libnetcdf4.10.0mpimsmpi:
-        CONFIG: win_64_hdf52libnetcdf4.10.0mpimsmpi
+      win_64_hdf52libnetcdf4.10.0mkl_devel2026mpiimpi-devel:
+        CONFIG: win_64_hdf52libnetcdf4.10.0mkl_devel2026mpiimpi-devel
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip
