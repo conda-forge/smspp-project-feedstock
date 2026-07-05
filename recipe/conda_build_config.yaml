@@ -8,11 +8,14 @@ mpi:
   - mpich    # [unix]
   - msmpi    # [win]
   - impi-devel  # [win]
+mkl_devel:
+  - 2026  # [unix]
+  - 2024  # [win]
+  - 2026  # [win]
+impi_devel:
+  - 2021.14.1  # [win]
 zip_keys:
   - - hdf5
     - libnetcdf
-mkl_devel:
-  - 2024  # [win and mpi == "msmpi"]
-  - 2026  # [win and mpi != "msmpi"]
-impi_devel:
-  - 2021.14.1  # [win and mpi == "impi-devel"]
+  - - mpi
+    - mkl_devel
