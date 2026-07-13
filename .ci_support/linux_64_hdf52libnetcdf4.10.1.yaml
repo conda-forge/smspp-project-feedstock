@@ -29,7 +29,7 @@ libboost_devel:
 libcurl:
 - '8'
 libnetcdf:
-- 4.10.0
+- 4.10.1
 mpi:
 - mpich
 mpich:
@@ -46,7 +46,7 @@ pin_run_as_build:
   netcdf-cxx4:
     max_pin: x.x
 target_platform:
-- linux-aarch64
+- linux-64
 zip_keys:
 - - hdf5
   - libnetcdf
