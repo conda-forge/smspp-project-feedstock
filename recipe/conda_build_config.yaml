@@ -2,7 +2,7 @@ hdf5:
   - 2
   - 1.14.6
 libnetcdf:
-  - 4.10.0
+  - 4.10.1
   - 4.9.3
 mpi:
   - mpich    # [unix]
