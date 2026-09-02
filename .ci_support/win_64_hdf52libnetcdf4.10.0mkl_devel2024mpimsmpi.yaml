@@ -15,15 +15,15 @@ coin_or_utils:
 cxx_compiler:
 - vs2022
 hdf5:
-- 1.14.6
+- '2'
 libboost_devel:
 - '1.90'
 libnetcdf:
-- 4.9.3
+- 4.10.0
 mkl_devel:
 - '2024'
 mpi:
-- impi-devel
+- msmpi
 mpich:
 - '5'
 netcdf_cxx4:
@@ -40,6 +40,8 @@ target_platform:
 zip_keys:
 - - hdf5
   - libnetcdf
+- - mpi
+  - mkl_devel
 zlib:
 - '1'
 zstd:

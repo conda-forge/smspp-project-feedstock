@@ -1,4 +1,6 @@
 {% set version = "0.5.1" %}
+{% set build = 5 %}
+{% set mpi_label = mpi|replace("-devel", "") %}
 
 package:
   name: smspp-project
@@ -9,7 +11,8 @@ source:
   sha256: 2a0527040e383f4bbb7ff0516d835bfbe6920d15306f8c35d93a0f786e210fb9
 
 build:
-  number: 4
+  number: {{ build }}
+  string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
   run_exports:
     - {{ pin_subpackage('smspp-project', max_pin='x.x.x') }}
 
@@ -25,7 +28,7 @@ requirements:
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
-    - llvm-openmp  # [win and mpi != "msmpi"]
+    - llvm-openmp  # [win and mpi == "impi-devel"]
     - intel-openmp  # [win and mpi == "msmpi"]
     - openblas
     - libboost-devel
@@ -49,12 +52,13 @@ requirements:
     # - scip >=9.2.3
     - highs >=1.10.0
     - lemon
-    - stopt >=6.3  # [win]
+    - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+    - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
     - mkl-devel  # [win]
     - zstd  # [win]
-    - winpthreads-devel  # [win and mpi != "msmpi"]
+    - winpthreads-devel  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
   run:
     - libopenblas  # [unix]
