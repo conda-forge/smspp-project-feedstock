@@ -26,8 +26,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: D:\Miniforge
-      win_64_hdf52libnetcdf4.10.0mpiimpi-devel:
-        CONFIG: win_64_hdf52libnetcdf4.10.0mpiimpi-devel
+      win_64_hdf52libnetcdf4.10.1mpiimpi-devel:
+        CONFIG: win_64_hdf52libnetcdf4.10.1mpiimpi-devel
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip
@@ -35,8 +35,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: D:\Miniforge
-      win_64_hdf52libnetcdf4.10.0mpimsmpi:
-        CONFIG: win_64_hdf52libnetcdf4.10.0mpimsmpi
+      win_64_hdf52libnetcdf4.10.1mpimsmpi:
+        CONFIG: win_64_hdf52libnetcdf4.10.1mpimsmpi
         UPLOAD_PACKAGES: 'True'
         build_workspace_dir: D:\\bld\\
         free_disk_space: skip

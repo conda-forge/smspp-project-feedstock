@@ -9,7 +9,7 @@ source:
   sha256: 2a0527040e383f4bbb7ff0516d835bfbe6920d15306f8c35d93a0f786e210fb9
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage('smspp-project', max_pin='x.x.x') }}
 

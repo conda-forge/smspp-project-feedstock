@@ -19,11 +19,11 @@ hdf5:
 libboost_devel:
 - '1.90'
 libnetcdf:
-- 4.10.0
+- 4.10.1
 mkl_devel:
-- '2024'
+- '2026'
 mpi:
-- impi-devel
+- msmpi
 mpich:
 - '5'
 netcdf_cxx4:

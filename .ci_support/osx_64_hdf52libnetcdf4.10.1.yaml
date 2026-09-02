@@ -31,7 +31,7 @@ libboost_devel:
 libcurl:
 - '8'
 libnetcdf:
-- 4.10.0
+- 4.10.1
 llvm_openmp:
 - '19'
 macos_machine:
