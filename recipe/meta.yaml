@@ -443,6 +443,7 @@ outputs:
         - stopt
         - libboost-mpi
         - {{ mpi }}
+        - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -487,6 +488,7 @@ outputs:
         - libboost-mpi
         - {{ mpi }}
         - stopt
+        - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -1082,6 +1084,7 @@ outputs:
         - stopt
         - libboost-mpi
         - {{ mpi }}
+        - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - coin-or-utils
@@ -1089,7 +1092,6 @@ outputs:
         - coin-or-osi
         - openblas
         - libopenblas
-        - bzip2
         - highs
         - libboost-devel
         - eigen

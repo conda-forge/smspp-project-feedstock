@@ -26,7 +26,7 @@ LIBS = [
     ("libsmspp-mssb", "MultiStageStochasticBlock",
      ["libsmspp-tssb"], []),
     ("libsmspp-sddp", "SDDPBlock", ["libsmspp-stochastic"],
-     ["stopt", "libboost-mpi", "{{ mpi }}",
+     ["stopt", "libboost-mpi", "{{ mpi }}", "bzip2",
       "libgomp  # [linux]", "llvm-openmp  # [osx]"]),
     ("libsmspp-investment", "InvestmentBlock",
      ["libsmspp-sddp", "libsmspp-tssb", "libsmspp-ucblock"],
