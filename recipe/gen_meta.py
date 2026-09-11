@@ -37,7 +37,7 @@ LIBS = [
     ("libsmspp-milp", "MILPSolver", ["libsmspp"], ["highs"]),
     ("libsmspp-bundle", "BundleSolver", ["libsmspp-milp"],
      ["coin-or-utils", "coin-or-clp", "coin-or-osi", "openblas",
-      "libopenblas", "bzip2"]),
+      "libopenblas", "bzip2", "mkl-devel  # [win]"]),
     ("libsmspp-lds", "LagrangianDualSolver",
      ["libsmspp-milp"], []),
     ("libsmspp-frankwolfe", "FrankWolfeSolver", ["libsmspp"], []),

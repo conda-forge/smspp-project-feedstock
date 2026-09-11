@@ -655,6 +655,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -958,6 +959,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1008,6 +1010,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1061,6 +1064,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1118,6 +1122,7 @@ outputs:
         - coin-or-osi
         - openblas
         - libopenblas
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1175,6 +1180,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - stopt
         - libgomp  # [linux]
@@ -1232,6 +1238,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1408,6 +1415,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -1507,6 +1515,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
+        - mkl-devel  # [win]
         - highs
         - stopt
         - libgomp  # [linux]
