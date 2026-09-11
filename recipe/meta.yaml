@@ -8,7 +8,7 @@ package:
 source:
   # a development snapshot of the umbrella, until {{ version }} is tagged
   - url: https://gitlab.com/api/v4/projects/smspp%2Fsmspp-project/packages/generic/smspp-project/{{ version }}-dev/smspp-project-{{ version }}-dev.tar.gz
-    sha256: 7e9fa7f53259a82bc4b06cabf31eca8ebf146c6b197d00b85f51868c60887d1c
+    sha256: ce5e185bdcf12de75ce3d6b01a92f0588a3f29a594b496630900a29bab6581b6
   # SMS++ fetches FastFlow at configure time; it is provided here instead, at
   # a fixed commit, for a reproducible build
   - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
