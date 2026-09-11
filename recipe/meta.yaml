@@ -184,6 +184,7 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -201,6 +202,7 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/CapacitatedFacilityLocationBlock/CapacitatedFacilityLocationBlockConfig.cmake  # [unix]
@@ -222,6 +224,7 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -239,6 +242,7 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MMCFBlock/MMCFBlockConfig.cmake  # [unix]
@@ -361,6 +365,7 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-devel
         - eigen
         - netcdf-cxx4
@@ -375,6 +380,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/TwoStageStochasticBlock/TwoStageStochasticBlockConfig.cmake  # [unix]
@@ -395,6 +401,8 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-devel
         - eigen
         - netcdf-cxx4
@@ -409,6 +417,8 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MultiStageStochasticBlock/MultiStageStochasticBlockConfig.cmake  # [unix]
@@ -429,6 +439,7 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - stopt
         - libboost-mpi
         - {{ mpi }}
@@ -448,6 +459,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/SDDPBlock/SDDPBlockConfig.cmake  # [unix]
@@ -470,6 +482,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-mpi
         - {{ mpi }}
         - stopt
@@ -491,6 +505,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/InvestmentBlock/InvestmentBlockConfig.cmake  # [unix]
@@ -615,10 +631,13 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -634,6 +653,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/BundleSolver/BundleSolverConfig.cmake  # [unix]
@@ -654,6 +674,7 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - highs
         - libboost-devel
         - eigen
@@ -669,6 +690,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/LagrangianDualSolver/LagrangianDualSolverConfig.cmake  # [unix]
@@ -791,6 +813,7 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-devel
         - eigen
         - netcdf-cxx4
@@ -805,6 +828,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MCFClassSolver/MCFClassSolverConfig.cmake  # [unix]
@@ -825,6 +849,7 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - lemon
         - libboost-devel
         - eigen
@@ -840,6 +865,7 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MCFLemonSolver/MCFLemonSolverConfig.cmake  # [unix]
@@ -860,6 +886,8 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-devel
         - eigen
         - netcdf-cxx4
@@ -874,6 +902,8 @@ outputs:
         - zlib
       run:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/ScenarioReductionSolver/ScenarioReductionSolverConfig.cmake  # [unix]
@@ -896,10 +926,13 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -918,6 +951,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - ucblock_solver --help
@@ -940,10 +974,14 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -963,6 +1001,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - tssb_solver --help
@@ -985,10 +1025,15 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -1008,6 +1053,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - mssb_solver --help
@@ -1029,6 +1077,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - stopt
         - libboost-mpi
         - {{ mpi }}
@@ -1038,6 +1088,8 @@ outputs:
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -1057,6 +1109,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - sddp_solver --help
@@ -1079,12 +1133,19 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - libboost-mpi
         - {{ mpi }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - stopt
         - libgomp  # [linux]
@@ -1107,6 +1168,11 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - investmentblock_solver --help
@@ -1128,11 +1194,14 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libsvm
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libboost-devel
         - eigen
@@ -1151,6 +1220,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - svm_solver --help
@@ -1171,6 +1241,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - lemon
         - highs
         - libboost-devel
@@ -1190,6 +1261,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - mcfblock_solver --help
@@ -1209,6 +1281,7 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - highs
@@ -1227,6 +1300,7 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - bkblock_solver --help
@@ -1246,6 +1320,9 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - highs
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -1264,6 +1341,9 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - cflblock_solver --help
@@ -1285,10 +1365,15 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -1309,6 +1394,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - mmcfblock_solver --help
@@ -1328,6 +1416,7 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
         - highs
         - libboost-devel
         - eigen
@@ -1344,6 +1433,7 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
         - sfdcrblock_solver --help
@@ -1367,6 +1457,11 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - libboost-mpi
         - {{ mpi }}
         - lemon
@@ -1374,6 +1469,8 @@ outputs:
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - libopenblas
+        - bzip2
         - highs
         - stopt
         - libgomp  # [linux]
@@ -1398,6 +1495,11 @@ outputs:
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - block_solver --help

@@ -35,7 +35,8 @@ LIBS = [
     ("libsmspp-sfdcr", "SingleFlowDCRBlock", ["libsmspp"], []),
     ("libsmspp-milp", "MILPSolver", ["libsmspp"], ["highs"]),
     ("libsmspp-bundle", "BundleSolver", ["libsmspp-milp"],
-     ["coin-or-utils", "coin-or-clp", "coin-or-osi", "openblas"]),
+     ["coin-or-utils", "coin-or-clp", "coin-or-osi", "openblas",
+      "libopenblas", "bzip2"]),
     ("libsmspp-lds", "LagrangianDualSolver",
      ["libsmspp-milp"], []),
     ("libsmspp-frankwolfe", "FrankWolfeSolver", ["libsmspp"], []),
@@ -85,10 +86,20 @@ TOOLS = [
 ]
 
 # the libraries are linked without --as-needed, so every one of them has
-# among its DSOs the external libraries of all the modules it needs, which
-# its host requirements must then list for their run_exports
+# among its DSOs the libraries of all the modules it needs, and the external
+# libraries of them, which its requirements must then all list
 REQS = {name: reqs for name, _, _, reqs in LIBS}
 NEEDS = {name: needs for name, _, needs, _ in LIBS}
+
+
+def closure(needs):
+    out, todo = [], list(needs)
+    while todo:
+        n = todo.pop(0)
+        if n not in out:
+            out.append(n)
+            todo += NEEDS[n]
+    return out
 
 
 def externals(needs, own=()):
@@ -127,13 +138,13 @@ for name, module, needs, reqs in LIBS:
     w("        - {{ stdlib('c') }}\n")
     w("        - cmake >=3.21\n")
     w("      host:\n")
-    for n in needs:
+    for n in closure(needs):
         w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
     for r in externals(needs, reqs):
         w(f"        - {r}\n")
     if needs:
         w("      run:\n")
-        for n in needs:
+        for n in closure(needs):
             w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
     w("    test:\n")
     w("      commands:\n")
@@ -154,12 +165,12 @@ for name, dirs, needs, cmds in TOOLS:
     w("        - {{ stdlib('c') }}\n")
     w("        - cmake >=3.21\n")
     w("      host:\n")
-    for n in needs:
+    for n in closure(needs):
         w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
     for r in externals(needs):
         w(f"        - {r}\n")
     w("      run:\n")
-    for n in needs:
+    for n in closure(needs):
         w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
     w("    test:\n")
     w("      commands:\n")
