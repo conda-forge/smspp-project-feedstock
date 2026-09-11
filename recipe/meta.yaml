@@ -93,6 +93,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/SMS++/SMS++Config.cmake  # [unix]
@@ -127,6 +128,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -161,6 +163,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -199,6 +202,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
@@ -239,6 +243,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
@@ -275,6 +280,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -309,6 +315,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -343,6 +350,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -378,6 +386,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -415,6 +424,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
@@ -458,6 +468,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -503,6 +514,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
@@ -542,6 +554,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -576,6 +589,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -611,6 +625,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -653,6 +668,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -690,6 +706,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -725,6 +742,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -759,6 +777,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -793,6 +812,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -828,6 +848,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -865,6 +886,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -902,6 +924,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
@@ -948,6 +971,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
@@ -997,6 +1021,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
@@ -1049,6 +1074,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
@@ -1105,6 +1131,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
@@ -1164,6 +1191,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-investment', exact=True) }}
         - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
@@ -1217,6 +1245,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-svm', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
@@ -1258,6 +1287,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
@@ -1299,6 +1329,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
@@ -1340,6 +1371,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
@@ -1391,6 +1423,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-mmcf', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
@@ -1432,6 +1465,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
@@ -1489,6 +1523,7 @@ outputs:
         - openssl  # [unix]
         - libcurl  # [unix]
         - zlib
+        - getopt-win32  # [win]
       run:
         - {{ pin_subpackage('libsmspp-investment', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
