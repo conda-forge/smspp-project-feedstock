@@ -8,7 +8,7 @@ package:
 source:
   # a development snapshot of the umbrella, until {{ version }} is tagged
   - url: https://gitlab.com/api/v4/projects/smspp%2Fsmspp-project/packages/generic/smspp-project/{{ version }}-dev/smspp-project-{{ version }}-dev.tar.gz
-    sha256: 11af99d70c62d24dd0e68715a23a61abb56d7e981e44b1f9acd822c4ba94ffd3
+    sha256: 7e9fa7f53259a82bc4b06cabf31eca8ebf146c6b197d00b85f51868c60887d1c
   # SMS++ fetches FastFlow at configure time; it is provided here instead, at
   # a fixed commit, for a reproducible build
   - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
@@ -26,6 +26,9 @@ requirements:
     - make  # [unix]
     - pkgconfig  # [unix]
     - ninja  # [win]
+    # MILPSolver builds a native generator of the HiGHS parameter headers
+    # when cross-compiling
+    - highs >=1.10.0  # [build_platform != target_platform]
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
@@ -62,6 +65,7 @@ requirements:
     - pthreads-win32  # [win and mpi == "msmpi"]
 
 outputs:
+  # written by gen_meta.py: edit its tables, not these lines
   # the library of each module, installed from the build of the umbrella
   - name: libsmspp
     script: install-module.sh  # [unix]
@@ -85,19 +89,23 @@ outputs:
         - libnetcdf * nompi_*
         - hdf5
         - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/SMS++/SMS++Config.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\SMS++\SMS++Config.cmake exit 1  # [win]
 
-  - name: libsmspp-binaryknapsackblock
+  - name: libsmspp-bkb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=BinaryKnapsackBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-bkb', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -107,6 +115,18 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -114,14 +134,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/BinaryKnapsackBlock/BinaryKnapsackBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\BinaryKnapsackBlock\BinaryKnapsackBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-mcfblock
+  - name: libsmspp-mcf
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MCFBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-mcfblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-mcf', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -129,6 +149,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -136,62 +168,90 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/MCFBlock/MCFBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MCFBlock\MCFBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-capacitatedfacilitylocationblock
+  - name: libsmspp-cflb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=CapacitatedFacilityLocationBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-capacitatedfacilitylocationblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-cflb', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/CapacitatedFacilityLocationBlock/CapacitatedFacilityLocationBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\CapacitatedFacilityLocationBlock\CapacitatedFacilityLocationBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-mmcfblock
+  - name: libsmspp-mmcf
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MMCFBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-mmcfblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-mmcf', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MMCFBlock/MMCFBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MMCFBlock\MMCFBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-lukfiblock
+  - name: libsmspp-lukfi
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=LukFiBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-lukfiblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-lukfi', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -199,6 +259,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -221,6 +293,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -228,14 +312,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/UCBlock/UCBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\UCBlock\UCBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-stochasticblock
+  - name: libsmspp-stochastic
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=StochasticBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-stochasticblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-stochastic', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -243,6 +327,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -250,113 +346,164 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/StochasticBlock/StochasticBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\StochasticBlock\StochasticBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-twostagestochasticblock
+  - name: libsmspp-tssb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=TwoStageStochasticBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-tssb', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-stochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-stochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/TwoStageStochasticBlock/TwoStageStochasticBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\TwoStageStochasticBlock\TwoStageStochasticBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-multistagestochasticblock
+  - name: libsmspp-mssb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MultiStageStochasticBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-mssb', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MultiStageStochasticBlock/MultiStageStochasticBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MultiStageStochasticBlock\MultiStageStochasticBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-sddpblock
+  - name: libsmspp-sddp
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=SDDPBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-sddpblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-sddp', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-stochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - stopt
         - libboost-mpi
         - {{ mpi }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-stochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/SDDPBlock/SDDPBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\SDDPBlock\SDDPBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-investmentblock
+  - name: libsmspp-investment
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=InvestmentBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-investmentblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-investment', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-sddpblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - libboost-mpi
         - {{ mpi }}
+        - stopt
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-sddpblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/InvestmentBlock/InvestmentBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\InvestmentBlock\InvestmentBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-svmblock
+  - name: libsmspp-svm
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=SVMBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-svmblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-svm', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -365,6 +512,18 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - libsvm
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -372,14 +531,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/SVMBlock/SVMBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\SVMBlock\SVMBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-singleflowdcrblock
+  - name: libsmspp-sfdcr
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=SingleFlowDCRBlock
       run_exports:
-        - {{ pin_subpackage('libsmspp-singleflowdcrblock', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-sfdcr', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -387,6 +546,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -394,14 +565,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/SingleFlowDCRBlock/SingleFlowDCRBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\SingleFlowDCRBlock\SingleFlowDCRBlockConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-milpsolver
+  - name: libsmspp-milp
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MILPSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-milpsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-milp', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -410,6 +581,18 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -417,62 +600,88 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/MILPSolver/MILPSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MILPSolver\MILPSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-bundlesolver
+  - name: libsmspp-bundle
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=BundleSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-bundlesolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-bundle', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/BundleSolver/BundleSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\BundleSolver\BundleSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-lagrangiandualsolver
+  - name: libsmspp-lds
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=LagrangianDualSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-lds', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/LagrangianDualSolver/LagrangianDualSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\LagrangianDualSolver\LagrangianDualSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-frankwolfesolver
+  - name: libsmspp-frankwolfe
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=FrankWolfeSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-frankwolfesolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-frankwolfe', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -480,6 +689,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -487,14 +708,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/FrankWolfeSolver/FrankWolfeSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\FrankWolfeSolver\FrankWolfeSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-branchandxsolver
+  - name: libsmspp-bnx
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=BranchAndXSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-branchandxsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-bnx', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -502,6 +723,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -509,14 +742,14 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/BranchAndXSolver/BranchAndXSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\BranchAndXSolver\BranchAndXSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-bendersdecompositionsolver
+  - name: libsmspp-bds
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=BendersDecompositionSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-bendersdecompositionsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-bds', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -524,6 +757,18 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
@@ -531,68 +776,104 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/BendersDecompositionSolver/BendersDecompositionSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\BendersDecompositionSolver\BendersDecompositionSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-mcfclasssolver
+  - name: libsmspp-mcfclass
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MCFClassSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-mcfclass', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MCFClassSolver/MCFClassSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MCFClassSolver\MCFClassSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-mcflemonsolver
+  - name: libsmspp-mcflemon
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=MCFLemonSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-mcflemon', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - lemon
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/MCFLemonSolver/MCFLemonSolverConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\MCFLemonSolver\MCFLemonSolverConfig.cmake exit 1  # [win]
 
-  - name: libsmspp-scenarioreductionsolver
+  - name: libsmspp-srs
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
       script_env:
         - SMSPP_MODULES=ScenarioReductionSolver
       run_exports:
-        - {{ pin_subpackage('libsmspp-scenarioreductionsolver', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libsmspp-srs', max_pin='x.x.x') }}
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/ScenarioReductionSolver/ScenarioReductionSolverConfig.cmake  # [unix]
@@ -612,14 +893,31 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - ucblock_solver --help
@@ -638,16 +936,33 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - tssb_solver --help
@@ -666,16 +981,33 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - mssb_solver --help
@@ -693,16 +1025,38 @@ outputs:
         - cmake >=3.21
       host:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-sddpblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - stopt
+        - libboost-mpi
+        - {{ mpi }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-sddpblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - sddp_solver --help
@@ -720,17 +1074,39 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-investmentblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-investment', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - libboost-mpi
+        - {{ mpi }}
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - stopt
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-investmentblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-investment', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - investmentblock_solver --help
@@ -748,20 +1124,38 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-svmblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-svm', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - libsvm
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-svmblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-svm', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - svm_solver --help
 
-  - name: smspp-mcfblock
+  - name: smspp-mcf
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
@@ -773,21 +1167,35 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - lemon
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - mcfblock_solver --help
         - mcfblock_solver ${PREFIX}/share/SMS++_tools/mcfblock_solver/examples/example.dmx  # [unix]
 
-  - name: smspp-bkblock
+  - name: smspp-bkb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
@@ -799,17 +1207,32 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - bkblock_solver --help
         - bkblock_solver ${PREFIX}/share/SMS++_tools/bkblock_solver/examples/example.txt  # [unix]
 
-  - name: smspp-cflblock
+  - name: smspp-cflb
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
@@ -821,17 +1244,32 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-capacitatedfacilitylocationblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - highs
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-capacitatedfacilitylocationblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - cflblock_solver --help
         - cflblock_solver ${PREFIX}/share/SMS++_tools/cflblock_solver/examples/example.txt  # [unix]
 
-  - name: smspp-mmcfblock
+  - name: smspp-mmcf
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
@@ -843,21 +1281,40 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-mmcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mmcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-mmcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mmcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - mmcfblock_solver --help
         - mmcfblock_solver ${PREFIX}/share/SMS++_tools/mmcfblock_solver/examples/small.std  # [unix]
 
-  - name: smspp-sfdcrblock
+  - name: smspp-sfdcr
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
@@ -869,11 +1326,24 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-singleflowdcrblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - highs
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-singleflowdcrblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - sfdcrblock_solver --help
@@ -890,21 +1360,44 @@ outputs:
         - {{ stdlib('c') }}
         - cmake >=3.21
       host:
-        - {{ pin_subpackage('libsmspp-investmentblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-investment', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - libboost-mpi
+        - {{ mpi }}
+        - lemon
+        - coin-or-utils
+        - coin-or-clp
+        - coin-or-osi
+        - openblas
+        - highs
+        - stopt
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
       run:
-        - {{ pin_subpackage('libsmspp-investmentblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-investment', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
     test:
       commands:
         - block_solver --help
@@ -917,39 +1410,39 @@ outputs:
         - {{ mpi }}
       run:
         - {{ pin_subpackage('libsmspp', exact=True) }}
-        - {{ pin_subpackage('libsmspp-binaryknapsackblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-capacitatedfacilitylocationblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mmcfblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lukfiblock', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mmcf', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lukfi', exact=True) }}
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-stochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-twostagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-multistagestochasticblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-sddpblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-investmentblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-svmblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-singleflowdcrblock', exact=True) }}
-        - {{ pin_subpackage('libsmspp-milpsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bundlesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-lagrangiandualsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-frankwolfesolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-branchandxsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-bendersdecompositionsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcfclasssolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-mcflemonsolver', exact=True) }}
-        - {{ pin_subpackage('libsmspp-scenarioreductionsolver', exact=True) }}
+        - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
+        - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sddp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-investment', exact=True) }}
+        - {{ pin_subpackage('libsmspp-svm', exact=True) }}
+        - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
+        - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-frankwolfe', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bnx', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcfclass', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mcflemon', exact=True) }}
+        - {{ pin_subpackage('libsmspp-srs', exact=True) }}
         - {{ pin_subpackage('smspp-ucblock', exact=True) }}
         - {{ pin_subpackage('smspp-tssb', exact=True) }}
         - {{ pin_subpackage('smspp-mssb', exact=True) }}
         - {{ pin_subpackage('smspp-sddp', exact=True) }}
         - {{ pin_subpackage('smspp-investment', exact=True) }}
         - {{ pin_subpackage('smspp-svm', exact=True) }}
-        - {{ pin_subpackage('smspp-mcfblock', exact=True) }}
-        - {{ pin_subpackage('smspp-bkblock', exact=True) }}
-        - {{ pin_subpackage('smspp-cflblock', exact=True) }}
-        - {{ pin_subpackage('smspp-mmcfblock', exact=True) }}
-        - {{ pin_subpackage('smspp-sfdcrblock', exact=True) }}
+        - {{ pin_subpackage('smspp-mcf', exact=True) }}
+        - {{ pin_subpackage('smspp-bkb', exact=True) }}
+        - {{ pin_subpackage('smspp-cflb', exact=True) }}
+        - {{ pin_subpackage('smspp-mmcf', exact=True) }}
+        - {{ pin_subpackage('smspp-sfdcr', exact=True) }}
         - {{ pin_subpackage('smspp-tools', exact=True) }}
     test:
       commands:
