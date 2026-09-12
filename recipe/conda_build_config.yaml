@@ -12,8 +12,6 @@ mkl_devel:
   - "2024"  # [unix]
   - "2024"  # [win]
   - "2026"  # [win]
-impi_devel:
-  - "2021.14.1"  # [win]
 zip_keys:
   - - hdf5
     - libnetcdf
