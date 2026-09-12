@@ -15,6 +15,7 @@ build:
   string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
   run_exports:
     - {{ pin_subpackage('smspp-project', max_pin='x.x.x') }}
+    - smspp-project * mpi_{{ mpi_label }}_*
 
 requirements:
   build:
@@ -56,13 +57,15 @@ requirements:
     - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
-    - mkl-devel  # [win]
+    - mkl-devel {{ mkl_devel }}  # [win]
     - zstd  # [win]
     - winpthreads-devel  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
   run:
     - libopenblas  # [unix]
+    - {{ mpi }}  # [unix]
     - msmpi  # [win and mpi == "msmpi"]
+    - impi_rt  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
 
 test:
