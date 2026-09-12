@@ -26,7 +26,7 @@ requirements:
     - pkgconfig  # [unix]
     - ninja  # [win]
     - highs >=1.10.0
-    - impi-devel  # [win and mpi == "impi-devel"]
+    - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
@@ -49,7 +49,7 @@ requirements:
     - eigen
     - {{ mpi }}  # [not win]
     - msmpi  # [win and mpi == "msmpi"]
-    - impi-devel  # [win and mpi == "impi-devel"]
+    - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
     - coin-or-utils
     - coin-or-clp
     - coin-or-osi
