@@ -21,7 +21,7 @@ libboost_devel:
 libnetcdf:
 - 4.9.3
 mkl_devel:
-- '2026'
+- '2024'
 mpi:
 - msmpi
 mpich:
