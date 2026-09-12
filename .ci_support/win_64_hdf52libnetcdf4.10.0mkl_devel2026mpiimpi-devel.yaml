@@ -21,9 +21,9 @@ libboost_devel:
 libnetcdf:
 - 4.10.0
 mkl_devel:
-- '2024'
+- '2026'
 mpi:
-- msmpi
+- impi-devel
 mpich:
 - '5'
 netcdf_cxx4:
@@ -31,7 +31,7 @@ netcdf_cxx4:
 openblas:
 - 0.3.*
 openmpi:
-- '4'
+- '5'
 pin_run_as_build:
   netcdf-cxx4:
     max_pin: x.x
@@ -40,6 +40,8 @@ target_platform:
 zip_keys:
 - - hdf5
   - libnetcdf
+- - mpi
+  - mkl_devel
 zlib:
 - '1'
 zstd:

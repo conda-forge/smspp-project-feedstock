@@ -54,34 +54,6 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf52libnetcdf4.10.0" alt="variant">
                 </a>
               </td>
-            </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpiimpi-devel</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpiimpi-devel" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpimsmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpimsmpi" alt="variant">
-                </a>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -107,31 +79,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `smspp-project` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install smspp-project
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install smspp-project
 ```
 
-It is possible to list all of the versions of `smspp-project` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add smspp-project
+# for installing globally
+pixi global install smspp-project
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `smspp-project` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search smspp-project --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search smspp-project --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search smspp-project --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -143,6 +157,8 @@ mamba repoquery whoneeds smspp-project --channel conda-forge
 # List dependencies of `smspp-project`:
 mamba repoquery depends smspp-project --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
