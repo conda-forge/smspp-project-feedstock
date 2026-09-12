@@ -16,8 +16,6 @@ cxx_compiler:
 - vs2022
 hdf5:
 - '2'
-impi_devel:
-- 2021.16.0
 libboost_devel:
 - '1.90'
 libnetcdf:
