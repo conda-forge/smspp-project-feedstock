@@ -32,6 +32,8 @@ libcurl:
 - '8'
 libnetcdf:
 - 4.10.1
+libsvm:
+- '337'
 llvm_openmp:
 - '21'
 macos_machine:
