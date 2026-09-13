@@ -1602,7 +1602,7 @@ about:
   description: |
     SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
     It is split into the libsmspp library of the core, a libsmspp-<module> library for each of its Blocks and Solvers, a package for each of its command-line tools (e.g. smspp-ucblock for ucblock_solver), and smspp-project, which installs them all.
-  license: GPL-3.0-or-later
+  license: LGPL-3.0-only
   license_file: LICENSE
   doc_url: https://smspp.gitlab.io/
   dev_url: https://gitlab.com/smspp/smspp-project
