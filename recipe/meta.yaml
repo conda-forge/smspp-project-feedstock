@@ -1021,6 +1021,7 @@ outputs:
       commands:
         - ucblock_solver --help
         - ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
+        - ucblock_solver %PREFIX%\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
 
   - name: smspp-tssb
     script: install-module.sh  # [unix]
@@ -1075,6 +1076,7 @@ outputs:
       commands:
         - tssb_solver --help
         - tssb_solver ${PREFIX}/share/SMS++_tools/tssb_solver/examples/toy_tssb.nc4  # [unix]
+        - tssb_solver %PREFIX%\share\SMS++_tools\tssb_solver\examples\toy_tssb.nc4  # [win]
 
   - name: smspp-mssb
     script: install-module.sh  # [unix]
@@ -1193,6 +1195,7 @@ outputs:
       commands:
         - sddp_solver --help
         - sddp_solver -p ${PREFIX}/share/SMS++_tools/sddp_solver/examples/ SDDPBlock.nc4  # [unix]
+        - sddp_solver -p %PREFIX%\share\SMS++_tools\sddp_solver\examples\ SDDPBlock.nc4  # [win]
 
   - name: smspp-investment
     script: install-module.sh  # [unix]
@@ -1262,6 +1265,7 @@ outputs:
       commands:
         - investmentblock_solver --help
         - investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
+        - investmentblock_solver %PREFIX%\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
 
   - name: smspp-svm
     script: install-module.sh  # [unix]
@@ -1356,6 +1360,7 @@ outputs:
       commands:
         - mcfblock_solver --help
         - mcfblock_solver ${PREFIX}/share/SMS++_tools/mcfblock_solver/examples/example.dmx  # [unix]
+        - mcfblock_solver %PREFIX%\share\SMS++_tools\mcfblock_solver\examples\example.dmx  # [win]
 
   - name: smspp-bkb
     script: install-module.sh  # [unix]
@@ -1397,6 +1402,7 @@ outputs:
       commands:
         - bkblock_solver --help
         - bkblock_solver ${PREFIX}/share/SMS++_tools/bkblock_solver/examples/example.txt  # [unix]
+        - bkblock_solver %PREFIX%\share\SMS++_tools\bkblock_solver\examples\example.txt  # [win]
 
   - name: smspp-cflb
     script: install-module.sh  # [unix]
@@ -1442,6 +1448,7 @@ outputs:
       commands:
         - cflblock_solver --help
         - cflblock_solver ${PREFIX}/share/SMS++_tools/cflblock_solver/examples/example.txt  # [unix]
+        - cflblock_solver %PREFIX%\share\SMS++_tools\cflblock_solver\examples\example.txt  # [win]
 
   - name: smspp-mmcf
     script: install-module.sh  # [unix]
@@ -1498,6 +1505,7 @@ outputs:
       commands:
         - mmcfblock_solver --help
         - mmcfblock_solver ${PREFIX}/share/SMS++_tools/mmcfblock_solver/examples/small.std  # [unix]
+        - mmcfblock_solver %PREFIX%\share\SMS++_tools\mmcfblock_solver\examples\small.std  # [win]
 
   - name: smspp-sfdcr
     script: install-module.sh  # [unix]
@@ -1658,6 +1666,10 @@ outputs:
       commands:
         - ucblock_solver --help
         - investmentblock_solver --help
+        - ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
+        - ucblock_solver %PREFIX%\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
+        - investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
+        - investmentblock_solver %PREFIX%\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
 
 about:
   home: https://gitlab.com/smspp/smspp-project

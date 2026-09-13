@@ -188,6 +188,9 @@ for name, dirs, needs, cmds in TOOLS:
         w(f"        - {d} --help\n")
     for c in cmds:
         w(f"        - {c}  # [unix]\n")
+        win = c.replace("${PREFIX}/share/SMS++_tools",
+                        "%PREFIX%\\share\\SMS++_tools").replace("/", "\\")
+        w(f"        - {win}  # [win]\n")
     w("\n")
 w("  # everything, the libraries and the tools\n")
 w("  - name: smspp-project\n")
@@ -203,6 +206,13 @@ w("    test:\n")
 w("      commands:\n")
 w("        - ucblock_solver --help\n")
 w("        - investmentblock_solver --help\n")
+for c in [f"ucblock_solver {EX}/ucblock_solver/examples/Bus_Test.nc4",
+          f"investmentblock_solver {EX}/investmentblock_solver/examples/"
+          "InvestmentBlockBus.nc4"]:
+    w(f"        - {c}  # [unix]\n")
+    win = c.replace("${PREFIX}/share/SMS++_tools",
+                    "%PREFIX%\\share\\SMS++_tools").replace("/", "\\")
+    w(f"        - {win}  # [win]\n")
 w("\n")
 
 open(META, "w").write(head + "".join(o) + about)
