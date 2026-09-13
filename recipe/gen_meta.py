@@ -27,17 +27,24 @@ LIBS = [
     ("libsmspp-mssb", "MultiStageStochasticBlock",
      ["libsmspp-tssb"], []),
     ("libsmspp-sddp", "SDDPBlock", ["libsmspp-stochastic"],
-     ["stopt", "libboost-mpi", "{{ mpi }}", "bzip2",
+     ["stopt >=5.16  # [unix]",
+      "stopt >=6.3 mpi_msmpi_*  # [win and mpi == \"msmpi\"]",
+      "stopt >=6.3 mpi_impi_*  # [win and mpi == \"impi-devel\"]",
+      "libboost-mpi", "{{ mpi }}  # [not win]",
+      "msmpi  # [win and mpi == \"msmpi\"]",
+      "impi-devel >=2021.18  # [win and mpi == \"impi-devel\"]", "bzip2",
       "libgomp  # [linux]", "llvm-openmp  # [osx]"]),
     ("libsmspp-investment", "InvestmentBlock",
      ["libsmspp-sddp", "libsmspp-tssb", "libsmspp-ucblock"],
-     ["libboost-mpi", "{{ mpi }}"]),
+     ["libboost-mpi", "{{ mpi }}  # [not win]",
+      "msmpi  # [win and mpi == \"msmpi\"]",
+      "impi-devel >=2021.18  # [win and mpi == \"impi-devel\"]"]),
     ("libsmspp-svm", "SVMBlock", ["libsmspp"], ["libsvm"]),
     ("libsmspp-sfdcr", "SingleFlowDCRBlock", ["libsmspp"], []),
     ("libsmspp-milp", "MILPSolver", ["libsmspp"], ["highs"]),
     ("libsmspp-bundle", "BundleSolver", ["libsmspp-milp"],
      ["coin-or-utils", "coin-or-clp", "coin-or-osi", "openblas",
-      "libopenblas", "bzip2", "mkl-devel  # [win]"]),
+      "libopenblas", "bzip2", "mkl-devel {{ mkl_devel }}  # [win]"]),
     ("libsmspp-lds", "LagrangianDualSolver",
      ["libsmspp-milp"], []),
     ("libsmspp-frankwolfe", "FrankWolfeSolver", ["libsmspp"], []),
@@ -129,6 +136,7 @@ for name, module, needs, reqs in LIBS:
     w("    script: install-module.sh  # [unix]\n")
     w("    script: install-module.bat  # [win]\n")
     w("    build:\n")
+    w("      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}\n")
     w("      script_env:\n")
     w(f"        - SMSPP_MODULES={module}\n")
     w("      run_exports:\n")
@@ -158,6 +166,7 @@ for name, dirs, needs, cmds in TOOLS:
     w("    script: install-module.sh  # [unix]\n")
     w("    script: install-module.bat  # [win]\n")
     w("    build:\n")
+    w("      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}\n")
     w("      script_env:\n")
     w(f"        - SMSPP_MODULES={' '.join('tools/' + d for d in dirs)}\n")
     w("    requirements:\n")
@@ -182,6 +191,8 @@ for name, dirs, needs, cmds in TOOLS:
     w("\n")
 w("  # everything, the libraries and the tools\n")
 w("  - name: smspp-project\n")
+w("    build:\n")
+w("      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}\n")
 w("    requirements:\n")
 w("      host:\n")
 w("        - {{ mpi }}\n")

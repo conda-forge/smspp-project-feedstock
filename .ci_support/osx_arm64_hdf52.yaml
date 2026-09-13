@@ -32,8 +32,11 @@ libcurl:
 - '8'
 libnetcdf:
 - 4.10.1
+<<<<<<<< HEAD:.ci_support/osx_arm64_hdf52.yaml
 libsvm:
 - '337'
+========
+>>>>>>>> origin/main:.ci_support/osx_arm64_hdf52libnetcdf4.10.1.yaml
 llvm_openmp:
 - '21'
 macos_machine:

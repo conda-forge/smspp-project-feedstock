@@ -1,4 +1,6 @@
 {% set version = "0.6.0" %}
+{% set build = 0 %}
+{% set mpi_label = mpi|replace("-devel", "") %}
 {% set fastflow_commit = "d476f66ab924d8d122f54b4b90aee00ef979aea8" %}
 
 package:
@@ -15,7 +17,7 @@ source:
     folder: fastflow
 
 build:
-  number: 0
+  number: {{ build }}
 
 requirements:
   build:
@@ -28,10 +30,11 @@ requirements:
     # MILPSolver builds a native generator of the HiGHS parameter headers
     # when cross-compiling
     - highs >=1.10.0  # [build_platform != target_platform]
+    - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
-    - llvm-openmp  # [win and mpi != "msmpi"]
+    - llvm-openmp  # [win and mpi == "impi-devel"]
     - intel-openmp  # [win and mpi == "msmpi"]
     - openblas
     - libboost-devel
@@ -48,19 +51,22 @@ requirements:
     - bzip2
     - zlib
     - eigen
-    - {{ mpi }}
+    - {{ mpi }}  # [not win]
+    - msmpi  # [win and mpi == "msmpi"]
+    - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
     - coin-or-utils
     - coin-or-clp
     - coin-or-osi
     - highs >=1.10.0
     - lemon
     - libsvm
-    - stopt >=6.3  # [win]
+    - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+    - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
-    - mkl-devel  # [win]
+    - mkl-devel {{ mkl_devel }}  # [win]
     - zstd  # [win]
-    - winpthreads-devel  # [win and mpi != "msmpi"]
+    - winpthreads-devel  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
 
 outputs:
@@ -70,6 +76,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=SMS++
       run_exports:
@@ -102,6 +109,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=BinaryKnapsackBlock
       run_exports:
@@ -139,6 +147,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MCFBlock
       run_exports:
@@ -174,6 +183,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=CapacitatedFacilityLocationBlock
       run_exports:
@@ -215,6 +225,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MMCFBlock
       run_exports:
@@ -256,6 +267,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=LukFiBlock
       run_exports:
@@ -291,6 +303,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=UCBlock
       run_exports:
@@ -326,6 +339,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=StochasticBlock
       run_exports:
@@ -361,6 +375,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=TwoStageStochasticBlock
       run_exports:
@@ -398,6 +413,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MultiStageStochasticBlock
       run_exports:
@@ -437,6 +453,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=SDDPBlock
       run_exports:
@@ -449,9 +466,13 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
-        - stopt
+        - stopt >=5.16  # [unix]
+        - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+        - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
         - libboost-mpi
-        - {{ mpi }}
+        - {{ mpi }}  # [not win]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
         - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -480,6 +501,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=InvestmentBlock
       run_exports:
@@ -496,8 +518,12 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - libboost-mpi
-        - {{ mpi }}
-        - stopt
+        - {{ mpi }}  # [not win]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
+        - stopt >=5.16  # [unix]
+        - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+        - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
         - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -529,6 +555,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=SVMBlock
       run_exports:
@@ -565,6 +592,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=SingleFlowDCRBlock
       run_exports:
@@ -600,6 +628,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MILPSolver
       run_exports:
@@ -636,6 +665,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=BundleSolver
       run_exports:
@@ -654,7 +684,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -681,6 +711,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=LagrangianDualSolver
       run_exports:
@@ -719,6 +750,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=FrankWolfeSolver
       run_exports:
@@ -754,6 +786,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=BranchAndXSolver
       run_exports:
@@ -789,6 +822,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=BendersDecompositionSolver
       run_exports:
@@ -824,6 +858,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MCFClassSolver
       run_exports:
@@ -861,6 +896,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=MCFLemonSolver
       run_exports:
@@ -899,6 +935,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=ScenarioReductionSolver
       run_exports:
@@ -939,6 +976,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/ucblock_solver
     requirements:
@@ -958,7 +996,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -988,6 +1026,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/tssb_solver
     requirements:
@@ -1009,7 +1048,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1041,6 +1080,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/mssb_solver
     requirements:
@@ -1063,7 +1103,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1095,6 +1135,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/sddp_solver
     requirements:
@@ -1110,9 +1151,13 @@ outputs:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
-        - stopt
+        - stopt >=5.16  # [unix]
+        - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+        - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
         - libboost-mpi
-        - {{ mpi }}
+        - {{ mpi }}  # [not win]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
         - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -1121,7 +1166,7 @@ outputs:
         - coin-or-osi
         - openblas
         - libopenblas
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1153,6 +1198,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/investmentblock_solver
     requirements:
@@ -1172,16 +1218,20 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - libboost-mpi
-        - {{ mpi }}
+        - {{ mpi }}  # [not win]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
         - coin-or-utils
         - coin-or-clp
         - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
-        - stopt
+        - stopt >=5.16  # [unix]
+        - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+        - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -1217,6 +1267,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/svm_solver
     requirements:
@@ -1237,7 +1288,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libboost-devel
         - eigen
@@ -1266,6 +1317,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/mcfblock_solver
     requirements:
@@ -1309,6 +1361,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/bkblock_solver
     requirements:
@@ -1349,6 +1402,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/cflblock_solver
     requirements:
@@ -1393,6 +1447,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/mmcfblock_solver
     requirements:
@@ -1414,7 +1469,7 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
@@ -1448,6 +1503,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/sfdcrblock_solver
     requirements:
@@ -1485,6 +1541,7 @@ outputs:
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
     build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
       script_env:
         - SMSPP_MODULES=tools/block_solver tools/chgcfg
     requirements:
@@ -1506,7 +1563,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - libboost-mpi
-        - {{ mpi }}
+        - {{ mpi }}  # [not win]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
         - lemon
         - coin-or-utils
         - coin-or-clp
@@ -1514,9 +1573,11 @@ outputs:
         - openblas
         - libopenblas
         - bzip2
-        - mkl-devel  # [win]
+        - mkl-devel {{ mkl_devel }}  # [win]
         - highs
-        - stopt
+        - stopt >=5.16  # [unix]
+        - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
+        - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - libboost-devel
@@ -1552,6 +1613,8 @@ outputs:
 
   # everything, the libraries and the tools
   - name: smspp-project
+    build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
     requirements:
       host:
         - {{ mpi }}

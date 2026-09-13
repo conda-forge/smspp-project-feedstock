@@ -39,6 +39,14 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - win-64
+<<<<<<<< HEAD:.ci_support/win_64_hdf51.14.6mpimsmpi.yaml
+========
+zip_keys:
+- - hdf5
+  - libnetcdf
+- - mpi
+  - mkl_devel
+>>>>>>>> origin/main:.ci_support/win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi.yaml
 zlib:
 - '1'
 zstd:

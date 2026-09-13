@@ -30,11 +30,6 @@ libcurl:
 - '8'
 libnetcdf:
 - 4.10.1
-<<<<<<<< HEAD:.ci_support/linux_ppc64le_hdf52.yaml
-libsvm:
-- '337'
-========
->>>>>>>> origin/main:.ci_support/linux_ppc64le_hdf52libnetcdf4.10.1.yaml
 mpi:
 - mpich
 mpich:
@@ -52,5 +47,8 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - linux-ppc64le
+zip_keys:
+- - hdf5
+  - libnetcdf
 zlib:
 - '1'
