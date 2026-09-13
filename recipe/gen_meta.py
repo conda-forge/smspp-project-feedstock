@@ -57,6 +57,12 @@ LIBS = [
      ["libsmspp-tssb"], []),
 ]
 
+# what an output that links MPI needs at run time, beyond its own modules
+MPI_RUN = ['{{ mpi }}  # [unix]',
+           'msmpi  # [win and mpi == "msmpi"]',
+           'impi_rt  # [win and mpi == "impi-devel"]']
+MPI_LIBS = {"libsmspp-sddp", "libsmspp-investment"}
+
 SOLVERS = ["libsmspp-lds", "libsmspp-bundle",
            "libsmspp-milp"]
 EX = "${PREFIX}/share/SMS++_tools"
@@ -151,10 +157,13 @@ for name, module, needs, reqs in LIBS:
         w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
     for r in externals(needs, reqs):
         w(f"        - {r}\n")
-    if needs:
+    if needs or name in MPI_LIBS:
         w("      run:\n")
         for n in closure(needs):
             w(f"        - {{{{ pin_subpackage('{n}', exact=True) }}}}\n")
+        if name in MPI_LIBS:
+            for r in MPI_RUN:
+                w(f"        - {r}\n")
     w("    test:\n")
     w("      commands:\n")
     w(f"        - test -f ${{PREFIX}}/lib/cmake/{module}/{module}Config.cmake  # [unix]\n")

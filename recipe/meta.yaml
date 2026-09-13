@@ -492,6 +492,9 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ mpi }}  # [unix]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi_rt  # [win and mpi == "impi-devel"]
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/SDDPBlock/SDDPBlockConfig.cmake  # [unix]
@@ -546,6 +549,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
+        - {{ mpi }}  # [unix]
+        - msmpi  # [win and mpi == "msmpi"]
+        - impi_rt  # [win and mpi == "impi-devel"]
     test:
       commands:
         - test -f ${PREFIX}/lib/cmake/InvestmentBlock/InvestmentBlockConfig.cmake  # [unix]
