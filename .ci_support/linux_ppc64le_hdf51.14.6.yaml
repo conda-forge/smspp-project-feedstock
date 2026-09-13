@@ -17,11 +17,11 @@ coin_or_utils:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '14'
+- '15'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 hdf5:
-- '2'
+- 1.14.6
 libaec:
 - '1'
 libboost_devel:
@@ -29,7 +29,9 @@ libboost_devel:
 libcurl:
 - '8'
 libnetcdf:
-- 4.10.0
+- 4.10.1
+libsvm:
+- '337'
 mpi:
 - mpich
 mpich:
@@ -39,16 +41,13 @@ netcdf_cxx4:
 openblas:
 - 0.3.*
 openmpi:
-- '4'
+- '5'
 openssl:
 - '3.5'
 pin_run_as_build:
   netcdf-cxx4:
     max_pin: x.x
 target_platform:
-- linux-aarch64
-zip_keys:
-- - hdf5
-  - libnetcdf
+- linux-ppc64le
 zlib:
 - '1'

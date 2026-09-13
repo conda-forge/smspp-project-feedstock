@@ -21,9 +21,9 @@ coin_or_utils:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '19'
+- '21'
 hdf5:
-- 1.14.6
+- '2'
 libaec:
 - '1'
 libboost_devel:
@@ -31,9 +31,11 @@ libboost_devel:
 libcurl:
 - '8'
 libnetcdf:
-- 4.9.3
+- 4.10.1
+libsvm:
+- '337'
 llvm_openmp:
-- '19'
+- '21'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
@@ -45,7 +47,7 @@ netcdf_cxx4:
 openblas:
 - 0.3.*
 openmpi:
-- '4'
+- '5'
 openssl:
 - '3.5'
 pin_run_as_build:
@@ -53,8 +55,5 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - osx-64
-zip_keys:
-- - hdf5
-  - libnetcdf
 zlib:
 - '1'

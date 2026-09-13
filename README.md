@@ -1,11 +1,11 @@
 About smspp-project-feedstock
 =============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/smspp-project-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ctrl-feedstock/blob/main/LICENSE.txt)
 
 Home: https://gitlab.com/smspp/smspp-project
 
-Package license: GPL-3.0-or-later
+Package license: LGPL-3.0-only
 
 Summary: A powerful tool to model and solve optimization problems.
 
@@ -14,6 +14,7 @@ Development: https://gitlab.com/smspp/smspp-project
 Documentation: https://smspp.gitlab.io/
 
 SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
+It is split into the libsmspp library of the core, a libsmspp-<module> library for each of its Blocks and Solvers, a package for each of its command-line tools (e.g. smspp-ucblock for ucblock_solver), and smspp-project, which installs them all.
 
 
 Current build status
@@ -23,8 +24,8 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/conda-forge/smspp-project-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/smspp-project-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/conda-forge/ctrl-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/ctrl-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
     </td>
   </tr>
@@ -34,52 +35,24 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main">
           </a>
         </summary>
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64_hdf51.14.6libnetcdf4.9.3</td>
+              <td>osx_64_hdf51.14.6</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf51.14.6libnetcdf4.9.3" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_hdf52libnetcdf4.10.0</td>
+              <td>osx_64_hdf52</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf52libnetcdf4.10.0" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpiimpi-devel</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpiimpi-devel" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_hdf52libnetcdf4.10.0mpimsmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=win&configuration=win%20win_64_hdf52libnetcdf4.10.0mpimsmpi" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf52" alt="variant">
                 </a>
               </td>
             </tr>
@@ -95,7 +68,42 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp-green.svg)](https://anaconda.org/conda-forge/libsmspp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp.svg)](https://anaconda.org/conda-forge/libsmspp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp.svg)](https://anaconda.org/conda-forge/libsmspp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp.svg)](https://anaconda.org/conda-forge/libsmspp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--bds-green.svg)](https://anaconda.org/conda-forge/libsmspp-bds) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-bds.svg)](https://anaconda.org/conda-forge/libsmspp-bds) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-bds.svg)](https://anaconda.org/conda-forge/libsmspp-bds) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-bds.svg)](https://anaconda.org/conda-forge/libsmspp-bds) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--bkb-green.svg)](https://anaconda.org/conda-forge/libsmspp-bkb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-bkb.svg)](https://anaconda.org/conda-forge/libsmspp-bkb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-bkb.svg)](https://anaconda.org/conda-forge/libsmspp-bkb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-bkb.svg)](https://anaconda.org/conda-forge/libsmspp-bkb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--bnx-green.svg)](https://anaconda.org/conda-forge/libsmspp-bnx) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-bnx.svg)](https://anaconda.org/conda-forge/libsmspp-bnx) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-bnx.svg)](https://anaconda.org/conda-forge/libsmspp-bnx) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-bnx.svg)](https://anaconda.org/conda-forge/libsmspp-bnx) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--bundle-green.svg)](https://anaconda.org/conda-forge/libsmspp-bundle) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-bundle.svg)](https://anaconda.org/conda-forge/libsmspp-bundle) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-bundle.svg)](https://anaconda.org/conda-forge/libsmspp-bundle) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-bundle.svg)](https://anaconda.org/conda-forge/libsmspp-bundle) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--cflb-green.svg)](https://anaconda.org/conda-forge/libsmspp-cflb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-cflb.svg)](https://anaconda.org/conda-forge/libsmspp-cflb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-cflb.svg)](https://anaconda.org/conda-forge/libsmspp-cflb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-cflb.svg)](https://anaconda.org/conda-forge/libsmspp-cflb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--frankwolfe-green.svg)](https://anaconda.org/conda-forge/libsmspp-frankwolfe) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-frankwolfe.svg)](https://anaconda.org/conda-forge/libsmspp-frankwolfe) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-frankwolfe.svg)](https://anaconda.org/conda-forge/libsmspp-frankwolfe) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-frankwolfe.svg)](https://anaconda.org/conda-forge/libsmspp-frankwolfe) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--investment-green.svg)](https://anaconda.org/conda-forge/libsmspp-investment) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-investment.svg)](https://anaconda.org/conda-forge/libsmspp-investment) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-investment.svg)](https://anaconda.org/conda-forge/libsmspp-investment) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-investment.svg)](https://anaconda.org/conda-forge/libsmspp-investment) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--lds-green.svg)](https://anaconda.org/conda-forge/libsmspp-lds) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-lds.svg)](https://anaconda.org/conda-forge/libsmspp-lds) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-lds.svg)](https://anaconda.org/conda-forge/libsmspp-lds) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-lds.svg)](https://anaconda.org/conda-forge/libsmspp-lds) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--lukfi-green.svg)](https://anaconda.org/conda-forge/libsmspp-lukfi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-lukfi.svg)](https://anaconda.org/conda-forge/libsmspp-lukfi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-lukfi.svg)](https://anaconda.org/conda-forge/libsmspp-lukfi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-lukfi.svg)](https://anaconda.org/conda-forge/libsmspp-lukfi) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--mcf-green.svg)](https://anaconda.org/conda-forge/libsmspp-mcf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-mcf.svg)](https://anaconda.org/conda-forge/libsmspp-mcf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-mcf.svg)](https://anaconda.org/conda-forge/libsmspp-mcf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-mcf.svg)](https://anaconda.org/conda-forge/libsmspp-mcf) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--mcfclass-green.svg)](https://anaconda.org/conda-forge/libsmspp-mcfclass) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-mcfclass.svg)](https://anaconda.org/conda-forge/libsmspp-mcfclass) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-mcfclass.svg)](https://anaconda.org/conda-forge/libsmspp-mcfclass) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-mcfclass.svg)](https://anaconda.org/conda-forge/libsmspp-mcfclass) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--mcflemon-green.svg)](https://anaconda.org/conda-forge/libsmspp-mcflemon) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-mcflemon.svg)](https://anaconda.org/conda-forge/libsmspp-mcflemon) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-mcflemon.svg)](https://anaconda.org/conda-forge/libsmspp-mcflemon) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-mcflemon.svg)](https://anaconda.org/conda-forge/libsmspp-mcflemon) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--milp-green.svg)](https://anaconda.org/conda-forge/libsmspp-milp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-milp.svg)](https://anaconda.org/conda-forge/libsmspp-milp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-milp.svg)](https://anaconda.org/conda-forge/libsmspp-milp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-milp.svg)](https://anaconda.org/conda-forge/libsmspp-milp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--mmcf-green.svg)](https://anaconda.org/conda-forge/libsmspp-mmcf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-mmcf.svg)](https://anaconda.org/conda-forge/libsmspp-mmcf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-mmcf.svg)](https://anaconda.org/conda-forge/libsmspp-mmcf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-mmcf.svg)](https://anaconda.org/conda-forge/libsmspp-mmcf) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--mssb-green.svg)](https://anaconda.org/conda-forge/libsmspp-mssb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-mssb.svg)](https://anaconda.org/conda-forge/libsmspp-mssb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-mssb.svg)](https://anaconda.org/conda-forge/libsmspp-mssb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-mssb.svg)](https://anaconda.org/conda-forge/libsmspp-mssb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--sddp-green.svg)](https://anaconda.org/conda-forge/libsmspp-sddp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-sddp.svg)](https://anaconda.org/conda-forge/libsmspp-sddp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-sddp.svg)](https://anaconda.org/conda-forge/libsmspp-sddp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-sddp.svg)](https://anaconda.org/conda-forge/libsmspp-sddp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--sfdcr-green.svg)](https://anaconda.org/conda-forge/libsmspp-sfdcr) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-sfdcr.svg)](https://anaconda.org/conda-forge/libsmspp-sfdcr) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-sfdcr.svg)](https://anaconda.org/conda-forge/libsmspp-sfdcr) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-sfdcr.svg)](https://anaconda.org/conda-forge/libsmspp-sfdcr) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--srs-green.svg)](https://anaconda.org/conda-forge/libsmspp-srs) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-srs.svg)](https://anaconda.org/conda-forge/libsmspp-srs) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-srs.svg)](https://anaconda.org/conda-forge/libsmspp-srs) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-srs.svg)](https://anaconda.org/conda-forge/libsmspp-srs) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--stochastic-green.svg)](https://anaconda.org/conda-forge/libsmspp-stochastic) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-stochastic.svg)](https://anaconda.org/conda-forge/libsmspp-stochastic) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-stochastic.svg)](https://anaconda.org/conda-forge/libsmspp-stochastic) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-stochastic.svg)](https://anaconda.org/conda-forge/libsmspp-stochastic) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--svm-green.svg)](https://anaconda.org/conda-forge/libsmspp-svm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-svm.svg)](https://anaconda.org/conda-forge/libsmspp-svm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-svm.svg)](https://anaconda.org/conda-forge/libsmspp-svm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-svm.svg)](https://anaconda.org/conda-forge/libsmspp-svm) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--tssb-green.svg)](https://anaconda.org/conda-forge/libsmspp-tssb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-tssb.svg)](https://anaconda.org/conda-forge/libsmspp-tssb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-tssb.svg)](https://anaconda.org/conda-forge/libsmspp-tssb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-tssb.svg)](https://anaconda.org/conda-forge/libsmspp-tssb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsmspp--ucblock-green.svg)](https://anaconda.org/conda-forge/libsmspp-ucblock) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsmspp-ucblock.svg)](https://anaconda.org/conda-forge/libsmspp-ucblock) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsmspp-ucblock.svg)](https://anaconda.org/conda-forge/libsmspp-ucblock) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsmspp-ucblock.svg)](https://anaconda.org/conda-forge/libsmspp-ucblock) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--bkb-green.svg)](https://anaconda.org/conda-forge/smspp-bkb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-bkb.svg)](https://anaconda.org/conda-forge/smspp-bkb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-bkb.svg)](https://anaconda.org/conda-forge/smspp-bkb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-bkb.svg)](https://anaconda.org/conda-forge/smspp-bkb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--cflb-green.svg)](https://anaconda.org/conda-forge/smspp-cflb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-cflb.svg)](https://anaconda.org/conda-forge/smspp-cflb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-cflb.svg)](https://anaconda.org/conda-forge/smspp-cflb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-cflb.svg)](https://anaconda.org/conda-forge/smspp-cflb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--investment-green.svg)](https://anaconda.org/conda-forge/smspp-investment) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-investment.svg)](https://anaconda.org/conda-forge/smspp-investment) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-investment.svg)](https://anaconda.org/conda-forge/smspp-investment) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-investment.svg)](https://anaconda.org/conda-forge/smspp-investment) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--mcf-green.svg)](https://anaconda.org/conda-forge/smspp-mcf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-mcf.svg)](https://anaconda.org/conda-forge/smspp-mcf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-mcf.svg)](https://anaconda.org/conda-forge/smspp-mcf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-mcf.svg)](https://anaconda.org/conda-forge/smspp-mcf) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--mmcf-green.svg)](https://anaconda.org/conda-forge/smspp-mmcf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-mmcf.svg)](https://anaconda.org/conda-forge/smspp-mmcf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-mmcf.svg)](https://anaconda.org/conda-forge/smspp-mmcf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-mmcf.svg)](https://anaconda.org/conda-forge/smspp-mmcf) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--mssb-green.svg)](https://anaconda.org/conda-forge/smspp-mssb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-mssb.svg)](https://anaconda.org/conda-forge/smspp-mssb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-mssb.svg)](https://anaconda.org/conda-forge/smspp-mssb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-mssb.svg)](https://anaconda.org/conda-forge/smspp-mssb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--project-green.svg)](https://anaconda.org/conda-forge/smspp-project) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-project.svg)](https://anaconda.org/conda-forge/smspp-project) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-project.svg)](https://anaconda.org/conda-forge/smspp-project) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-project.svg)](https://anaconda.org/conda-forge/smspp-project) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--sddp-green.svg)](https://anaconda.org/conda-forge/smspp-sddp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-sddp.svg)](https://anaconda.org/conda-forge/smspp-sddp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-sddp.svg)](https://anaconda.org/conda-forge/smspp-sddp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-sddp.svg)](https://anaconda.org/conda-forge/smspp-sddp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--sfdcr-green.svg)](https://anaconda.org/conda-forge/smspp-sfdcr) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-sfdcr.svg)](https://anaconda.org/conda-forge/smspp-sfdcr) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-sfdcr.svg)](https://anaconda.org/conda-forge/smspp-sfdcr) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-sfdcr.svg)](https://anaconda.org/conda-forge/smspp-sfdcr) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--svm-green.svg)](https://anaconda.org/conda-forge/smspp-svm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-svm.svg)](https://anaconda.org/conda-forge/smspp-svm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-svm.svg)](https://anaconda.org/conda-forge/smspp-svm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-svm.svg)](https://anaconda.org/conda-forge/smspp-svm) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--tools-green.svg)](https://anaconda.org/conda-forge/smspp-tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-tools.svg)](https://anaconda.org/conda-forge/smspp-tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-tools.svg)](https://anaconda.org/conda-forge/smspp-tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-tools.svg)](https://anaconda.org/conda-forge/smspp-tools) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--tssb-green.svg)](https://anaconda.org/conda-forge/smspp-tssb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-tssb.svg)](https://anaconda.org/conda-forge/smspp-tssb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-tssb.svg)](https://anaconda.org/conda-forge/smspp-tssb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-tssb.svg)](https://anaconda.org/conda-forge/smspp-tssb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-smspp--ucblock-green.svg)](https://anaconda.org/conda-forge/smspp-ucblock) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/smspp-ucblock.svg)](https://anaconda.org/conda-forge/smspp-ucblock) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/smspp-ucblock.svg)](https://anaconda.org/conda-forge/smspp-ucblock) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/smspp-ucblock.svg)](https://anaconda.org/conda-forge/smspp-ucblock) |
 
 Installing smspp-project
 ========================
@@ -107,42 +115,86 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `smspp-project` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install smspp-project
+conda install libsmspp libsmspp-bds libsmspp-bkb libsmspp-bnx libsmspp-bundle libsmspp-cflb libsmspp-frankwolfe libsmspp-investment libsmspp-lds libsmspp-lukfi libsmspp-mcf libsmspp-mcfclass libsmspp-mcflemon libsmspp-milp libsmspp-mmcf libsmspp-mssb libsmspp-sddp libsmspp-sfdcr libsmspp-srs libsmspp-stochastic libsmspp-svm libsmspp-tssb libsmspp-ucblock smspp-bkb smspp-cflb smspp-investment smspp-mcf smspp-mmcf smspp-mssb smspp-project smspp-sddp smspp-sfdcr smspp-svm smspp-tools smspp-tssb smspp-ucblock
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install smspp-project
+mamba install libsmspp libsmspp-bds libsmspp-bkb libsmspp-bnx libsmspp-bundle libsmspp-cflb libsmspp-frankwolfe libsmspp-investment libsmspp-lds libsmspp-lukfi libsmspp-mcf libsmspp-mcfclass libsmspp-mcflemon libsmspp-milp libsmspp-mmcf libsmspp-mssb libsmspp-sddp libsmspp-sfdcr libsmspp-srs libsmspp-stochastic libsmspp-svm libsmspp-tssb libsmspp-ucblock smspp-bkb smspp-cflb smspp-investment smspp-mcf smspp-mmcf smspp-mssb smspp-project smspp-sddp smspp-sfdcr smspp-svm smspp-tools smspp-tssb smspp-ucblock
 ```
 
-It is possible to list all of the versions of `smspp-project` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
 
 ```
-conda search smspp-project --channel conda-forge
+# for adding to your local project
+pixi add libsmspp libsmspp-bds libsmspp-bkb libsmspp-bnx libsmspp-bundle libsmspp-cflb libsmspp-frankwolfe libsmspp-investment libsmspp-lds libsmspp-lukfi libsmspp-mcf libsmspp-mcfclass libsmspp-mcflemon libsmspp-milp libsmspp-mmcf libsmspp-mssb libsmspp-sddp libsmspp-sfdcr libsmspp-srs libsmspp-stochastic libsmspp-svm libsmspp-tssb libsmspp-ucblock smspp-bkb smspp-cflb smspp-investment smspp-mcf smspp-mmcf smspp-mssb smspp-project smspp-sddp smspp-sfdcr smspp-svm smspp-tools smspp-tssb smspp-ucblock
+# for installing globally
+pixi global install libsmspp libsmspp-bds libsmspp-bkb libsmspp-bnx libsmspp-bundle libsmspp-cflb libsmspp-frankwolfe libsmspp-investment libsmspp-lds libsmspp-lukfi libsmspp-mcf libsmspp-mcfclass libsmspp-mcflemon libsmspp-milp libsmspp-mmcf libsmspp-mssb libsmspp-sddp libsmspp-sfdcr libsmspp-srs libsmspp-stochastic libsmspp-svm libsmspp-tssb libsmspp-ucblock smspp-bkb smspp-cflb smspp-investment smspp-mcf smspp-mmcf smspp-mssb smspp-project smspp-sddp smspp-sfdcr smspp-svm smspp-tools smspp-tssb smspp-ucblock
 ```
 
-or with `mamba`:
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `libsmspp` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
-mamba search smspp-project --channel conda-forge
+conda search libsmspp --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With mamba</summary>
+
+```
+mamba search libsmspp --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search libsmspp --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search smspp-project --channel conda-forge
+mamba repoquery search libsmspp --channel conda-forge
 
-# List packages depending on `smspp-project`:
-mamba repoquery whoneeds smspp-project --channel conda-forge
+# List packages depending on `libsmspp`:
+mamba repoquery whoneeds libsmspp --channel conda-forge
 
-# List dependencies of `smspp-project`:
-mamba repoquery depends smspp-project --channel conda-forge
+# List dependencies of `libsmspp`:
+mamba repoquery depends libsmspp --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
