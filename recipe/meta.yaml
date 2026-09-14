@@ -1,4 +1,4 @@
-{% set version = "0.6.0" %}
+{% set version = "0.6.3" %}
 {% set build = 0 %}
 {% set mpi_label = mpi|replace("-devel", "") %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
-  sha256: 449e4bd652ec89370450a80505a8380551d9d90b4fbd87dbcb6d7a60a4ee2a1f
+  sha256: 35a08948bc4d9570076efbfd2d053e62269de456cd6325abc145bbb0947c1ad8
 
 build:
   number: {{ build }}
@@ -80,13 +80,13 @@ test:
     - |
       cd tools/ucblock_solver/examples
       cp ../config/BSCfg.txt BSCfg.txt
-      ucblock_solver Bus_Test.nc4 -S BSCfg.txt
+      ucblock_solver Bus_Test.nc4
       cd ../../..
     - |
       cd tools/investmentblock_solver
       cp config/BSPar.txt BSPar.txt
       cp config/BSCfg.txt BSCfg.txt
-      investmentblock_solver InvestmentBlockBus.nc4 -S BSPar.txt
+      investmentblock_solver InvestmentBlockBus.nc4
 
 about:
   home: https://gitlab.com/smspp/smspp-project
