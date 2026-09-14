@@ -1,4 +1,4 @@
-{% set version = "0.6.0" %}
+{% set version = "0.6.2" %}
 {% set build = 0 %}
 {% set mpi_label = mpi|replace("-devel", "") %}
 {% set fastflow_commit = "d476f66ab924d8d122f54b4b90aee00ef979aea8" %}
@@ -9,7 +9,7 @@ package:
 
 source:
   - url: https://gitlab.com/api/v4/projects/smspp%2Fsmspp-project/packages/generic/smspp-project/{{ version }}/smspp-project-{{ version }}.tar.gz
-    sha256: 449e4bd652ec89370450a80505a8380551d9d90b4fbd87dbcb6d7a60a4ee2a1f
+    sha256: f34e324955a1585b0e9ed11b07f167073ffe4cc3ef0bb220489155fd521a566d
   # SMS++ fetches FastFlow at configure time; it is provided here instead, at
   # a fixed commit, for a reproducible build
   - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
@@ -1025,9 +1025,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - ucblock_solver --help
-        - ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
-        - ucblock_solver %PREFIX%\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
+        - smspp_ucblock_solver --help
+        - smspp_ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
+        - smspp_ucblock_solver %PREFIX%\Library\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
 
   - name: smspp-tssb
     script: install-module.sh  # [unix]
@@ -1080,9 +1080,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
-        - tssb_solver --help
-        - tssb_solver ${PREFIX}/share/SMS++_tools/tssb_solver/examples/toy_tssb.nc4  # [unix]
-        - tssb_solver %PREFIX%\share\SMS++_tools\tssb_solver\examples\toy_tssb.nc4  # [win]
+        - smspp_tssb_solver --help
+        - smspp_tssb_solver ${PREFIX}/share/SMS++_tools/tssb_solver/examples/toy_tssb.nc4  # [unix]
+        - smspp_tssb_solver %PREFIX%\Library\share\SMS++_tools\tssb_solver\examples\toy_tssb.nc4  # [win]
 
   - name: smspp-mssb
     script: install-module.sh  # [unix]
@@ -1137,7 +1137,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
-        - mssb_solver --help
+        - smspp_mssb_solver --help
 
   - name: smspp-sddp
     script: install-module.sh  # [unix]
@@ -1199,9 +1199,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
-        - sddp_solver --help
-        - sddp_solver -p ${PREFIX}/share/SMS++_tools/sddp_solver/examples/ SDDPBlock.nc4  # [unix]
-        - sddp_solver -p %PREFIX%\share\SMS++_tools\sddp_solver\examples\ SDDPBlock.nc4  # [win]
+        - smspp_sddp_solver --help
+        - smspp_sddp_solver -p ${PREFIX}/share/SMS++_tools/sddp_solver/examples/ SDDPBlock.nc4  # [unix]
+        - smspp_sddp_solver -p %PREFIX%\Library\share\SMS++_tools\sddp_solver\examples\ SDDPBlock.nc4  # [win]
 
   - name: smspp-investment
     script: install-module.sh  # [unix]
@@ -1269,9 +1269,9 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
-        - investmentblock_solver --help
-        - investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
-        - investmentblock_solver %PREFIX%\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
+        - smspp_investmentblock_solver --help
+        - smspp_investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
+        - smspp_investmentblock_solver %PREFIX%\Library\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
 
   - name: smspp-svm
     script: install-module.sh  # [unix]
@@ -1321,7 +1321,7 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - svm_solver --help
+        - smspp_svm_solver --help
 
   - name: smspp-mcf
     script: install-module.sh  # [unix]
@@ -1364,9 +1364,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - mcfblock_solver --help
-        - mcfblock_solver ${PREFIX}/share/SMS++_tools/mcfblock_solver/examples/example.dmx  # [unix]
-        - mcfblock_solver %PREFIX%\share\SMS++_tools\mcfblock_solver\examples\example.dmx  # [win]
+        - smspp_mcfblock_solver --help
+        - smspp_mcfblock_solver ${PREFIX}/share/SMS++_tools/mcfblock_solver/examples/example.dmx  # [unix]
+        - smspp_mcfblock_solver %PREFIX%\Library\share\SMS++_tools\mcfblock_solver\examples\example.dmx  # [win]
 
   - name: smspp-bkb
     script: install-module.sh  # [unix]
@@ -1406,9 +1406,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - bkblock_solver --help
-        - bkblock_solver ${PREFIX}/share/SMS++_tools/bkblock_solver/examples/example.txt  # [unix]
-        - bkblock_solver %PREFIX%\share\SMS++_tools\bkblock_solver\examples\example.txt  # [win]
+        - smspp_bkblock_solver --help
+        - smspp_bkblock_solver ${PREFIX}/share/SMS++_tools/bkblock_solver/examples/example.txt  # [unix]
+        - smspp_bkblock_solver %PREFIX%\Library\share\SMS++_tools\bkblock_solver\examples\example.txt  # [win]
 
   - name: smspp-cflb
     script: install-module.sh  # [unix]
@@ -1452,9 +1452,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - cflblock_solver --help
-        - cflblock_solver ${PREFIX}/share/SMS++_tools/cflblock_solver/examples/example.txt  # [unix]
-        - cflblock_solver %PREFIX%\share\SMS++_tools\cflblock_solver\examples\example.txt  # [win]
+        - smspp_cflblock_solver --help
+        - smspp_cflblock_solver ${PREFIX}/share/SMS++_tools/cflblock_solver/examples/example.txt  # [unix]
+        - smspp_cflblock_solver %PREFIX%\Library\share\SMS++_tools\cflblock_solver\examples\example.txt  # [win]
 
   - name: smspp-mmcf
     script: install-module.sh  # [unix]
@@ -1509,9 +1509,9 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - mmcfblock_solver --help
-        - mmcfblock_solver ${PREFIX}/share/SMS++_tools/mmcfblock_solver/examples/small.std  # [unix]
-        - mmcfblock_solver %PREFIX%\share\SMS++_tools\mmcfblock_solver\examples\small.std  # [win]
+        - smspp_mmcfblock_solver --help
+        - smspp_mmcfblock_solver ${PREFIX}/share/SMS++_tools/mmcfblock_solver/examples/small.std  # [unix]
+        - smspp_mmcfblock_solver %PREFIX%\Library\share\SMS++_tools\mmcfblock_solver\examples\small.std  # [win]
 
   - name: smspp-sfdcr
     script: install-module.sh  # [unix]
@@ -1549,7 +1549,7 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
     test:
       commands:
-        - sfdcrblock_solver --help
+        - smspp_sfdcrblock_solver --help
 
   - name: smspp-tools
     script: install-module.sh  # [unix]
@@ -1622,8 +1622,8 @@ outputs:
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
     test:
       commands:
-        - block_solver --help
-        - chgcfg --help
+        - smspp_block_solver --help
+        - smspp_chgcfg --help
 
   # everything, the libraries and the tools
   - name: smspp-project
@@ -1670,12 +1670,12 @@ outputs:
         - {{ pin_subpackage('smspp-tools', exact=True) }}
     test:
       commands:
-        - ucblock_solver --help
-        - investmentblock_solver --help
-        - ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
-        - ucblock_solver %PREFIX%\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
-        - investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
-        - investmentblock_solver %PREFIX%\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
+        - smspp_ucblock_solver --help
+        - smspp_investmentblock_solver --help
+        - smspp_ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
+        - smspp_ucblock_solver %PREFIX%\Library\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
+        - smspp_investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
+        - smspp_investmentblock_solver %PREFIX%\Library\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
 
 about:
   home: https://gitlab.com/smspp/smspp-project

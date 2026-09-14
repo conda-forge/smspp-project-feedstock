@@ -194,11 +194,12 @@ for name, dirs, needs, cmds in TOOLS:
     w("    test:\n")
     w("      commands:\n")
     for d in dirs:
-        w(f"        - {d} --help\n")
+        w(f"        - smspp_{d} --help\n")
     for c in cmds:
+        c = "smspp_" + c
         w(f"        - {c}  # [unix]\n")
         win = c.replace("${PREFIX}/share/SMS++_tools",
-                        "%PREFIX%\\share\\SMS++_tools").replace("/", "\\")
+                        "%PREFIX%\\Library\\share\\SMS++_tools").replace("/", "\\")
         w(f"        - {win}  # [win]\n")
     w("\n")
 w("  # everything, the libraries and the tools\n")
@@ -213,14 +214,14 @@ for name, *_ in LIBS + TOOLS:
     w(f"        - {{{{ pin_subpackage('{name}', exact=True) }}}}\n")
 w("    test:\n")
 w("      commands:\n")
-w("        - ucblock_solver --help\n")
-w("        - investmentblock_solver --help\n")
-for c in [f"ucblock_solver {EX}/ucblock_solver/examples/Bus_Test.nc4",
-          f"investmentblock_solver {EX}/investmentblock_solver/examples/"
+w("        - smspp_ucblock_solver --help\n")
+w("        - smspp_investmentblock_solver --help\n")
+for c in [f"smspp_ucblock_solver {EX}/ucblock_solver/examples/Bus_Test.nc4",
+          f"smspp_investmentblock_solver {EX}/investmentblock_solver/examples/"
           "InvestmentBlockBus.nc4"]:
     w(f"        - {c}  # [unix]\n")
     win = c.replace("${PREFIX}/share/SMS++_tools",
-                    "%PREFIX%\\share\\SMS++_tools").replace("/", "\\")
+                    "%PREFIX%\\Library\\share\\SMS++_tools").replace("/", "\\")
     w(f"        - {win}  # [win]\n")
 w("\n")
 
