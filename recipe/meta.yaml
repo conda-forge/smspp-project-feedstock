@@ -10,6 +10,9 @@ package:
 source:
   - url: https://gitlab.com/api/v4/projects/smspp%2Fsmspp-project/packages/generic/smspp-project/{{ version }}/smspp-project-{{ version }}.tar.gz
     sha256: f34e324955a1585b0e9ed11b07f167073ffe4cc3ef0bb220489155fd521a566d
+    patches:
+      # removed upstream, this goes away with the release that carries it
+      - patches/0001-no-unistd-in-BenBound.patch
   # SMS++ fetches FastFlow at configure time; it is provided here instead, at
   # a fixed commit, for a reproducible build
   - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
