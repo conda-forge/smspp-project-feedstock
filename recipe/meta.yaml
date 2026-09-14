@@ -79,13 +79,10 @@ test:
     - investmentblock_solver --help
     - |
       cd tools/ucblock_solver/examples
-      cp ../config/BSCfg.txt BSCfg.txt
       ucblock_solver Bus_Test.nc4
       cd ../../..
     - |
       cd tools/investmentblock_solver
-      cp config/BSPar.txt BSPar.txt
-      cp config/BSCfg.txt BSCfg.txt
       investmentblock_solver InvestmentBlockBus.nc4
 
 about:
