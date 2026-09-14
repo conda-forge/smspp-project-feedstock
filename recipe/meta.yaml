@@ -72,18 +72,15 @@ requirements:
     - pthreads-win32  # [win and mpi == "msmpi"]
 
 test:
-  source_files:
-    - tools
   commands:
     - ucblock_solver --help
     - investmentblock_solver --help
-    - |
-      cd tools/ucblock_solver/examples
-      ucblock_solver Bus_Test.nc4
-      cd ../../..
-    - |
-      cd tools/investmentblock_solver
-      investmentblock_solver InvestmentBlockBus.nc4
+    # every tool installs its configuration next to its example and looks for
+    # it relative to its own executable, so the example is run where it is
+    - ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4  # [unix]
+    - ucblock_solver %PREFIX%\Library\share\SMS++_tools\ucblock_solver\examples\Bus_Test.nc4  # [win]
+    - investmentblock_solver ${PREFIX}/share/SMS++_tools/investmentblock_solver/examples/InvestmentBlockBus.nc4  # [unix]
+    - investmentblock_solver %PREFIX%\Library\share\SMS++_tools\investmentblock_solver\examples\InvestmentBlockBus.nc4  # [win]
 
 about:
   home: https://gitlab.com/smspp/smspp-project
