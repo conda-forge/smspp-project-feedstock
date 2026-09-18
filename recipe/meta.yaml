@@ -79,7 +79,7 @@ test:
     - investmentblock_solver --help
     - |
       cp tools/ucblock_solver/examples/Bus_Test.nc4 Bus_Test.nc4
-      ucblock_solver ${PREFIX}/share/SMS++_tools/ucblock_solver/examples/Bus_Test.nc4
+      ucblock_solver Bus_Test.nc4
     - |
       cp tools/investmentblock_solver/examples/InvestmentBlockBus.nc4 InvestmentBlockBus.nc4
       investmentblock_solver InvestmentBlockBus.nc4
