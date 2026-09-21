@@ -30,6 +30,8 @@ libcurl:
 - '8'
 libnetcdf:
 - 4.10.1
+libsvm:
+- '337'
 mpi:
 - mpich
 mpich:

@@ -20,6 +20,8 @@ libboost_devel:
 - '1.90'
 libnetcdf:
 - 4.10.1
+libsvm:
+- '337'
 mkl_devel:
 - '2026'
 mpi:
