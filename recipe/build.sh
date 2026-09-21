@@ -19,8 +19,5 @@ cmake ${CMAKE_ARGS} \
     -DCMAKE_DISABLE_FIND_PACKAGE_Torch=ON \
     -DHiGHS_ROOT=${PREFIX} \
     -DStOpt_ROOT=${PREFIX} \
-    -DCoinUtils_ROOT=${PREFIX} \
-    -DOsi_ROOT=${PREFIX} \
-    -DClp_ROOT=${PREFIX} \
     ..
 cmake --build . --config Release -j ${CPU_COUNT}

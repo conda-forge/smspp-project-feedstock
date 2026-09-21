@@ -15,9 +15,6 @@ cmake %CMAKE_ARGS% ^
     -DCMAKE_DISABLE_FIND_PACKAGE_Torch=ON ^
     -DHiGHS_ROOT=%LIBRARY_PREFIX% ^
     -DStOpt_ROOT=%LIBRARY_PREFIX% ^
-    -DCoinUtils_ROOT=%LIBRARY_PREFIX% ^
-    -DOsi_ROOT=%LIBRARY_PREFIX% ^
-    -DClp_ROOT=%LIBRARY_PREFIX% ^
     ..
 if %ERRORLEVEL% neq 0 (type CMakeError.log && exit 1)
 

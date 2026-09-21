@@ -54,9 +54,6 @@ requirements:
     - {{ mpi }}  # [not win]
     - msmpi  # [win and mpi == "msmpi"]
     - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
-    - coin-or-utils
-    - coin-or-clp
-    - coin-or-osi
     - highs >=1.10.0
     - lemon
     - libsvm
@@ -684,9 +681,6 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -996,9 +990,6 @@ outputs:
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1049,9 +1040,6 @@ outputs:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1105,9 +1093,6 @@ outputs:
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
         - {{ pin_subpackage('libsmspp-stochastic', exact=True) }}
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1169,9 +1154,6 @@ outputs:
         - bzip2
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - mkl-devel {{ mkl_devel }}  # [win]
@@ -1230,9 +1212,6 @@ outputs:
         - {{ mpi }}  # [not win]
         - msmpi  # [win and mpi == "msmpi"]
         - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1292,9 +1271,6 @@ outputs:
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
         - libsvm
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1476,9 +1452,6 @@ outputs:
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
@@ -1581,9 +1554,6 @@ outputs:
         - msmpi  # [win and mpi == "msmpi"]
         - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
         - lemon
-        - coin-or-utils
-        - coin-or-clp
-        - coin-or-osi
         - openblas
         - libopenblas
         - bzip2
