@@ -1,6 +1,4 @@
 set -ex
-export LDFLAGS=${LDFLAGS//-Wl,--as-needed/}
-export LDFLAGS=${LDFLAGS//-Wl,-dead_strip_dylibs/}
 
 # the whole umbrella is built once, and every output installs its part
 mkdir build

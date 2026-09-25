@@ -97,9 +97,8 @@ TOOLS = [
       "libsmspp-mcflemon"] + SOLVERS, []),
 ]
 
-# the libraries are linked without --as-needed, so every one of them has
-# among its DSOs the libraries of all the modules it needs, and the external
-# libraries of them, which its requirements must then all list
+# every library lists among its requirements the libraries of all the
+# modules it needs, and the external libraries of them
 REQS = {name: reqs for name, _, _, reqs in LIBS}
 NEEDS = {name: needs for name, _, needs, _ in LIBS}
 
