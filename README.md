@@ -1,7 +1,7 @@
 About smspp-project-feedstock
 =============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ctrl-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/smspp-project-feedstock/blob/main/LICENSE.txt)
 
 Home: https://gitlab.com/smspp/smspp-project
 
@@ -24,8 +24,8 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/conda-forge/ctrl-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/ctrl-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/conda-forge/smspp-project-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/smspp-project-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
     </td>
   </tr>
@@ -35,8 +35,8 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main">
           </a>
         </summary>
         <table>
@@ -44,15 +44,15 @@ Current build status
           <tbody><tr>
               <td>osx_64_hdf51.14.6libnetcdf4.9.3</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf51.14.6libnetcdf4.9.3" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf51.14.6libnetcdf4.9.3" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_hdf52libnetcdf4.10.1</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ctrl-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf52libnetcdf4.10.1" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27428&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/smspp-project-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_hdf52libnetcdf4.10.1" alt="variant">
                 </a>
               </td>
             </tr>
