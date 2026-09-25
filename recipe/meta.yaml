@@ -20,6 +20,8 @@ source:
 
 build:
   number: {{ build }}
+  # TEMPORARY, to be dropped: only macOS is built while its fix is checked
+  skip: true  # [not osx]
 
 requirements:
   build:
