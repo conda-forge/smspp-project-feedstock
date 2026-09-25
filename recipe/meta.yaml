@@ -1027,6 +1027,8 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bds', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
@@ -1049,6 +1051,8 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-ucblock', exact=True) }}
         - {{ pin_subpackage('libsmspp-tssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mssb', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bds', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
