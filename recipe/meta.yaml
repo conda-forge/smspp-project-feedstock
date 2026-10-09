@@ -1514,6 +1514,9 @@ outputs:
       host:
         - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bnx', exact=True) }}
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
@@ -1536,6 +1539,9 @@ outputs:
       run:
         - {{ pin_subpackage('libsmspp-cflb', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
+        - {{ pin_subpackage('libsmspp-lds', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
+        - {{ pin_subpackage('libsmspp-bnx', exact=True) }}
         - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
         - {{ pin_subpackage('libsmspp-mcf', exact=True) }}
         - {{ pin_subpackage('libsmspp', exact=True) }}
