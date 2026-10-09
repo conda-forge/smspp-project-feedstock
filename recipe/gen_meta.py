@@ -44,6 +44,7 @@ LIBS = [
     ("libsmspp-sat", "SATBlock", ["libsmspp"],
      ["cadical  # [unix and not ppc64le]"]),
     ("libsmspp-satellites", "SatellitesBlock", ["libsmspp"], []),
+    ("libsmspp-mkab", "MultiKnapsackAssignBlock", ["libsmspp-bkb"], []),
     ("libsmspp-milp", "MILPSolver", ["libsmspp"], ["highs"]),
     ("libsmspp-bundle", "BundleSolver", ["libsmspp-milp"], []),
     ("libsmspp-lds", "LagrangianDualSolver",

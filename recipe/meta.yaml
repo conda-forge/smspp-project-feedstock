@@ -722,6 +722,46 @@ outputs:
         - test -f ${PREFIX}/lib/cmake/SatellitesBlock/SatellitesBlockConfig.cmake  # [unix]
         - if not exist %LIBRARY_PREFIX%\lib\cmake\SatellitesBlock\SatellitesBlockConfig.cmake exit 1  # [win]
 
+  - name: libsmspp-mkab
+    script: install-module.sh  # [unix]
+    script: install-module.bat  # [win]
+    build:
+      string: mpi_{{ mpi_label }}_h{{ PKG_HASH }}_{{ build }}
+      script_env:
+        - SMSPP_MODULES=MultiKnapsackAssignBlock
+      run_exports:
+        - {{ pin_subpackage('libsmspp-mkab', max_pin='x.x.x') }}
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+        - cmake >=3.21
+      host:
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - libboost-devel
+        - eigen
+        - netcdf-cxx4
+        - netcdf-cxx4 * nompi_*
+        - libnetcdf
+        - libnetcdf * nompi_*
+        - hdf5
+        - hdf5 * nompi_*
+        - libaec  # [unix]
+        - openssl  # [unix]
+        - libcurl  # [unix]
+        - zlib
+        - getopt-win32  # [win]
+      run:
+        - {{ pin_subpackage('libsmspp-bkb', exact=True) }}
+        - {{ pin_subpackage('libsmspp', exact=True) }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/cmake/MultiKnapsackAssignBlock/MultiKnapsackAssignBlockConfig.cmake  # [unix]
+        - if not exist %LIBRARY_PREFIX%\lib\cmake\MultiKnapsackAssignBlock\MultiKnapsackAssignBlockConfig.cmake exit 1  # [win]
+
   - name: libsmspp-milp
     script: install-module.sh  # [unix]
     script: install-module.bat  # [win]
@@ -1685,6 +1725,7 @@ outputs:
         - {{ pin_subpackage('libsmspp-sfdcr', exact=True) }}
         - {{ pin_subpackage('libsmspp-sat', exact=True) }}
         - {{ pin_subpackage('libsmspp-satellites', exact=True) }}
+        - {{ pin_subpackage('libsmspp-mkab', exact=True) }}
         - {{ pin_subpackage('libsmspp-milp', exact=True) }}
         - {{ pin_subpackage('libsmspp-bundle', exact=True) }}
         - {{ pin_subpackage('libsmspp-lds', exact=True) }}
