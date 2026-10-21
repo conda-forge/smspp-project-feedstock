@@ -1,14 +1,30 @@
-{% set version = "0.6.3" %}
+{% set version = "0.7.0" %}
 {% set build = 0 %}
 {% set mpi_label = mpi|replace("-devel", "") %}
+{% set fastflow_commit = "d476f66ab924d8d122f54b4b90aee00ef979aea8" %}
+{% set record_commit = "8cfbb6fd2084e1aac4857069a10c565b7b927cd7" %}
 
 package:
   name: smspp-project
   version: {{ version }}
 
 source:
-  url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
-  sha256: 35a08948bc4d9570076efbfd2d053e62269de456cd6325abc145bbb0947c1ad8
+  - url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
+    sha256: 66cddca3f77e92d1e7426a7613742efec8492cd84627fa56eedce8b478222d96
+  # SMS++ fetches FastFlow at configure time; it is provided here instead, at
+  # a fixed commit, for a reproducible build
+  - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
+    sha256: fca23ce672fe12fe7cdbfa6955a982d6eb75816a00d2d97a93deba9b351f9c53
+    folder: fastflow
+  # RECORD, the solver of RECORDBinaryKnapsackSolver in BinaryKnapsackBlock,
+  # which compiles its only source file: the repository has no tag, hence a
+  # fixed commit, and only the file and the LICENSE are fetched
+  - url: https://gitlab.com/renanfernandofranco/record/-/raw/{{ record_commit }}/source/RECORD.cpp
+    sha256: a62886ad586f0b64efbd5c7f20e7075dcb9c674735e033f1250eb575990e5c96
+    folder: record/source
+  - url: https://gitlab.com/renanfernandofranco/record/-/raw/{{ record_commit }}/LICENSE
+    sha256: c07f6ec57d7e3f1b18e47cf9d6ebebec76c6b141f780ecfe4993056b20b7bc5d
+    folder: record
 
 build:
   number: {{ build }}
@@ -21,18 +37,19 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
-    - cmake >=3.15
+    - cmake >=3.21
     - make  # [unix]
     - pkgconfig  # [unix]
     - ninja  # [win]
-    - highs >=1.10.0
+    # MILPSolver builds a native generator of the HiGHS parameter headers
+    # when cross-compiling
+    - highs >=1.10.0  # [build_platform != target_platform]
     - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
   host:
     - libgomp  # [linux]
     - llvm-openmp   # [unix]
     - llvm-openmp  # [win and mpi == "impi-devel"]
     - intel-openmp  # [win and mpi == "msmpi"]
-    - openblas
     - libboost-devel
     - libboost-mpi >={{ libboost_devel }}
     - netcdf-cxx4
@@ -50,22 +67,22 @@ requirements:
     - {{ mpi }}  # [not win]
     - msmpi  # [win and mpi == "msmpi"]
     - impi-devel >=2021.18  # [win and mpi == "impi-devel"]
-    - coin-or-utils
-    - coin-or-clp
-    - coin-or-osi
     # - scip >=9.2.3
     - highs >=1.10.0
     - lemon
+    - libsvm
+    # the SAT solver of SATBlock, which conda-forge does not build for Windows
+    # and for ppc64le; MiniSat is in no package, hence SATBlock has CaDiCaL
+    # only
+    - cadical  # [unix and not ppc64le]
     - stopt >=6.3 mpi_msmpi_*  # [win and mpi == "msmpi"]
     - stopt >=6.3 mpi_impi_*  # [win and mpi == "impi-devel"]
     - stopt >=5.16  # [unix]
     - getopt-win32  # [win]
-    - mkl-devel {{ mkl_devel }}  # [win]
     - zstd  # [win]
     - winpthreads-devel  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
   run:
-    - libopenblas  # [unix]
     - {{ mpi }}  # [unix]
     - msmpi  # [win and mpi == "msmpi"]
     - impi_rt  # [win and mpi == "impi-devel"]
@@ -75,22 +92,27 @@ test:
   source_files:
     - tools
   commands:
-    - ucblock_solver --help
-    - investmentblock_solver --help
+    - smspp_ucblock_solver --help
+    - smspp_investmentblock_solver --help
     - |
       cp tools/ucblock_solver/examples/Bus_Test.nc4 Bus_Test.nc4
-      ucblock_solver Bus_Test.nc4
+      smspp_ucblock_solver Bus_Test.nc4
     - |
       cp tools/investmentblock_solver/examples/InvestmentBlockBus.nc4 InvestmentBlockBus.nc4
-      investmentblock_solver InvestmentBlockBus.nc4
+      smspp_investmentblock_solver InvestmentBlockBus.nc4
 
 about:
   home: https://gitlab.com/smspp/smspp-project
   summary: 'A powerful tool to model and solve optimization problems.'
   description: |
     SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
-  license: GPL-3.0-or-later
-  license_file: LICENSE
+  # FastFlow (under its MIT license, LICENSE.MIT, it being also under the
+  # LGPL-3) and RECORD are compiled into the libraries, hence their notices
+  license: GPL-3.0-or-later AND MIT
+  license_file:
+    - LICENSE
+    - fastflow/LICENSE.MIT
+    - record/LICENSE
   doc_url: https://smspp.gitlab.io/
   dev_url: https://gitlab.com/smspp/smspp-project
 

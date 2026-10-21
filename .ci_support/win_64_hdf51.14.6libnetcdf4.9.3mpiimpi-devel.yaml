@@ -6,12 +6,6 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-coin_or_clp:
-- '1.17'
-coin_or_osi:
-- '0.108'
-coin_or_utils:
-- '2.11'
 cxx_compiler:
 - vs2022
 hdf5:
@@ -20,16 +14,14 @@ libboost_devel:
 - '1.90'
 libnetcdf:
 - 4.9.3
-mkl_devel:
-- '2026'
+libsvm:
+- '337'
 mpi:
 - impi-devel
 mpich:
 - '5'
 netcdf_cxx4:
 - '4.3'
-openblas:
-- 0.3.*
 openmpi:
 - '5'
 pin_run_as_build:
@@ -40,8 +32,6 @@ target_platform:
 zip_keys:
 - - hdf5
   - libnetcdf
-- - mpi
-  - mkl_devel
 zlib:
 - '1'
 zstd:

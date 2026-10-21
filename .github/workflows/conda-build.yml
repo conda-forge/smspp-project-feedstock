@@ -94,7 +94,7 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2024mpimsmpi
+          - CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mpiimpi-devel
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_platform: win-64
@@ -106,7 +106,7 @@ jobs:
             resize_partitions: False
             runs_on: ['windows-2022']
             tools_install_dir: D:\Miniforge
-          - CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mkl_devel2026mpiimpi-devel
+          - CONFIG: win_64_hdf51.14.6libnetcdf4.9.3mpimsmpi
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_platform: win-64
@@ -118,7 +118,7 @@ jobs:
             resize_partitions: False
             runs_on: ['windows-2022']
             tools_install_dir: D:\Miniforge
-          - CONFIG: win_64_hdf52libnetcdf4.10.1mkl_devel2024mpimsmpi
+          - CONFIG: win_64_hdf52libnetcdf4.10.1mpiimpi-devel
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_platform: win-64
@@ -130,7 +130,7 @@ jobs:
             resize_partitions: False
             runs_on: ['windows-2022']
             tools_install_dir: D:\Miniforge
-          - CONFIG: win_64_hdf52libnetcdf4.10.1mkl_devel2026mpiimpi-devel
+          - CONFIG: win_64_hdf52libnetcdf4.10.1mpimsmpi
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_platform: win-64
