@@ -106,8 +106,13 @@ about:
   summary: 'A powerful tool to model and solve optimization problems.'
   description: |
     SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
-  license: GPL-3.0-or-later
-  license_file: LICENSE
+  # FastFlow (under its MIT license, LICENSE.MIT, it being also under the
+  # LGPL-3) and RECORD are compiled into the libraries, hence their notices
+  license: GPL-3.0-or-later AND MIT
+  license_file:
+    - LICENSE
+    - fastflow/LICENSE.MIT
+    - record/LICENSE
   doc_url: https://smspp.gitlab.io/
   dev_url: https://gitlab.com/smspp/smspp-project
 
