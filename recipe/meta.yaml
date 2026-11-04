@@ -11,6 +11,9 @@ source:
   # commits and with their licenses, and CMake takes them from there
   url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
   sha256: 036f4968d2bf2e8e16b29c82f65902bb1a016925aa110ccf15c55e5d44a39a12
+  patches:
+    # the DLL of netCDF-C++ does not export its type objects on Windows
+    - netcdf-type-objects.patch
 
 build:
   number: {{ build }}
