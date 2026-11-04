@@ -1,30 +1,19 @@
-{% set version = "0.7.0" %}
+{% set version = "0.7.1" %}
 {% set build = 0 %}
 {% set mpi_label = mpi|replace("-devel", "") %}
-{% set fastflow_commit = "d476f66ab924d8d122f54b4b90aee00ef979aea8" %}
-{% set record_commit = "8cfbb6fd2084e1aac4857069a10c565b7b927cd7" %}
 
 package:
   name: smspp-project
   version: {{ version }}
 
 source:
-  - url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
-    sha256: 66cddca3f77e92d1e7426a7613742efec8492cd84627fa56eedce8b478222d96
-  # SMS++ fetches FastFlow at configure time; it is provided here instead, at
-  # a fixed commit, for a reproducible build
-  - url: https://github.com/fastflow/fastflow/archive/{{ fastflow_commit }}.tar.gz
-    sha256: fca23ce672fe12fe7cdbfa6955a982d6eb75816a00d2d97a93deba9b351f9c53
-    folder: fastflow
-  # RECORD, the solver of RECORDBinaryKnapsackSolver in BinaryKnapsackBlock,
-  # which compiles its only source file: the repository has no tag, hence a
-  # fixed commit, and only the file and the LICENSE are fetched
-  - url: https://gitlab.com/renanfernandofranco/record/-/raw/{{ record_commit }}/source/RECORD.cpp
-    sha256: a62886ad586f0b64efbd5c7f20e7075dcb9c674735e033f1250eb575990e5c96
-    folder: record/source
-  - url: https://gitlab.com/renanfernandofranco/record/-/raw/{{ record_commit }}/LICENSE
-    sha256: c07f6ec57d7e3f1b18e47cf9d6ebebec76c6b141f780ecfe4993056b20b7bc5d
-    folder: record
+  # the release tarball carries FastFlow and RECORD in third-party/, at fixed
+  # commits and with their licenses, and CMake takes them from there
+  url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
+  sha256: 036f4968d2bf2e8e16b29c82f65902bb1a016925aa110ccf15c55e5d44a39a12
+  patches:
+    # the DLL of netCDF-C++ does not export its type objects on Windows
+    - netcdf-type-objects.patch
 
 build:
   number: {{ build }}
@@ -108,11 +97,11 @@ about:
     SMS++ project provides a system for modeling complex, block-structured mathematical models, and solving them via sophisticated, structure-exploiting algorithms.
   # FastFlow (under its MIT license, LICENSE.MIT, it being also under the
   # LGPL-3) and RECORD are compiled into the libraries, hence their notices
-  license: GPL-3.0-or-later AND MIT
+  license: LGPL-3.0-only AND MIT
   license_file:
     - LICENSE
-    - fastflow/LICENSE.MIT
-    - record/LICENSE
+    - third-party/fastflow/LICENSE.MIT
+    - third-party/record/LICENSE
   doc_url: https://smspp.gitlab.io/
   dev_url: https://gitlab.com/smspp/smspp-project
 

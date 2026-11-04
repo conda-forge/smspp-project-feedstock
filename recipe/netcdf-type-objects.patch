@@ -1,0 +1,42 @@
+--- a/InvestmentBlock/test/test.cpp
++++ b/InvestmentBlock/test/test.cpp
+@@ -199,7 +199,7 @@
+ static void put_names( netCDF::NcGroup & g , const std::string & n ,
+ 		       const std::vector< std::string > & v )
+ {
+- auto var = g.addVar( n , netCDF::ncString , g.getDim( "NumAssets" ) );
++ auto var = g.addVar( n , netCDF::NcString() , g.getDim( "NumAssets" ) );
+  for( std::size_t i = 0 ; i < v.size() ; ++i )
+   var.putVar( { i } , v[ i ] );
+  }
+--- a/SMS++/test/tests_NetCDF.cpp
++++ b/SMS++/test/tests_NetCDF.cpp
+@@ -1569,7 +1569,7 @@
+  {
+   NcMemFile f;
+   auto d = f.addDim( "n" , 3 );
+-  auto var = f.addVar( "v" , netCDF::ncDouble , d );
++  auto var = f.addVar( "v" , netCDF::NcDouble() , d );
+   const double v[] = { 1.5 , -2 , 3 };
+   var.putVar( v );
+   f.putAtt( "a" , netCDF::NcInt() , 4 );
+--- a/tools/design_converter/design_converter.cpp
++++ b/tools/design_converter/design_converter.cpp
+@@ -264,7 +264,7 @@
+  for( const auto & [ name , var ] : src.getVars() ) {
+   if( skip.count( name ) )
+    continue;
+-  if( var.getType() != netCDF::ncString ) {
++  if( var.getType() != netCDF::NcString() ) {
+    netCDF::ncCheck( nc_copy_var( src.getId() , var.getId() , dst.getId() ) ,
+                     __FILE__ , __LINE__ );
+    continue;
+@@ -277,7 +277,7 @@
+                                netCDF::NcGroup::ParentsAndCurrent ) );
+    size *= dim.getSize();
+    }
+-  auto copy = dst.addVar( name , netCDF::ncString , dims );
++  auto copy = dst.addVar( name , netCDF::NcString() , dims );
+   for( const auto & att : var.getAtts() )
+    netCDF::ncCheck( nc_copy_att( src.getId() , var.getId() ,
+                                  att.first.c_str() , dst.getId() ,
