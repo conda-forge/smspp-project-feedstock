@@ -32,15 +32,10 @@ mpi:
 - mpich
 mpich:
 - '5'
-netcdf_cxx4:
-- '4.3'
 openmpi:
 - '5'
 openssl:
 - '3.5'
-pin_run_as_build:
-  netcdf-cxx4:
-    max_pin: x.x
 target_platform:
 - linux-64
 zip_keys:
