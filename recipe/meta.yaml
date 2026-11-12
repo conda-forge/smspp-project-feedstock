@@ -41,8 +41,8 @@ requirements:
     - intel-openmp  # [win and mpi == "msmpi"]
     - libboost-devel
     - libboost-mpi >={{ libboost_devel }}
-    - netcdf-cxx4
-    - netcdf-cxx4 * nompi_* <=4.3.1  # Versions 4.3.2+ do not ship libnetcdf-cxx4.so.1 leading to runtime errors
+    - netcdf-cxx4 <=4.3.1  # Versions 4.3.2+ do not ship libnetcdf-cxx4.so.1 leading to runtime errors
+    - netcdf-cxx4 * nompi_*
     - libnetcdf
     - libnetcdf * nompi_*
     - hdf5
@@ -76,7 +76,7 @@ requirements:
     - msmpi  # [win and mpi == "msmpi"]
     - impi_rt  # [win and mpi == "impi-devel"]
     - pthreads-win32  # [win and mpi == "msmpi"]
-    - netcdf-cxx4 * nompi_* <=4.3.1  # Versions 4.3.2+ do not ship libnetcdf-cxx4.so.1 leading to runtime errors
+    - libnetcdf-cxx4 <=4.3.1  # Versions 4.3.2+ do not ship libnetcdf-cxx4.so.1 leading to runtime errors
 
 test:
   source_files:
