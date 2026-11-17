@@ -1,5 +1,5 @@
-{% set version = "0.7.1" %}
-{% set build = 1 %}
+{% set version = "0.8.0" %}
+{% set build = 0 %}
 {% set mpi_label = mpi|replace("-devel", "") %}
 
 package:
@@ -10,7 +10,7 @@ source:
   # the release tarball carries FastFlow and RECORD in third-party/, at fixed
   # commits and with their licenses, and CMake takes them from there
   url: https://gitlab.com/smspp/smspp-project/-/releases/{{ version }}/downloads/smspp-project-{{ version }}.tar.gz
-  sha256: 036f4968d2bf2e8e16b29c82f65902bb1a016925aa110ccf15c55e5d44a39a12
+  sha256: 443563acb9b864675a3ee71895d1d767ca0820a34c3c088363b440ee08034a02
   patches:
     # the DLL of netCDF-C++ does not export its type objects on Windows
     - netcdf-type-objects.patch
