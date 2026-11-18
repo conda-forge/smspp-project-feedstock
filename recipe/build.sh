@@ -1,10 +1,12 @@
 set -ex
 
+# MCFLemonSolver needs abLEMON, which conda-forge does not have yet
 mkdir build
 cd build
 cmake ${CMAKE_ARGS} \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_tests=OFF \
+    -DBUILD_MCFLemonSolver=OFF \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCMAKE_PREFIX_PATH=${PREFIX} \

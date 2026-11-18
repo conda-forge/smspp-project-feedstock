@@ -1,8 +1,10 @@
+rem MCFLemonSolver needs abLEMON, which conda-forge does not have yet
 mkdir build
 cd build
 cmake %CMAKE_ARGS% ^
     -DOpenMP_RUNTIME_MSVC="llvm" ^
     -DBUILD_tests=OFF ^
+    -DBUILD_MCFLemonSolver=OFF ^
     -DBUILD_SHARED_LIBS=OFF ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
